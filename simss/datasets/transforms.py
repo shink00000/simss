@@ -64,8 +64,8 @@ class HorizontalFlip(nn.Module):
         self.p = p
 
     def forward(self, data: tuple) -> tuple:
+        image, label = data
         if random() < self.p:
-            image, label = data
             image = image.flip(2)
             label = label.flip(2)
         return (image, label)
@@ -83,7 +83,7 @@ class ColorJitter(nn.Module):
 
 
 class Normalize(nn.Module):
-    def __init__(self, mean, std):
+    def __init__(self, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]):
         super().__init__()
         self.normalize = T.Normalize(mean, std)
 
@@ -93,7 +93,7 @@ class Normalize(nn.Module):
         return (image, label)
 
 
-class RandomRotate(nn.Module):
+class Rotate(nn.Module):
     def __init__(self, degrees, fill=0, label_fill=255):
         super().__init__()
         self.degrees = degrees
