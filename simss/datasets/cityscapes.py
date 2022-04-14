@@ -53,7 +53,7 @@ class CityScapesDataset(Dataset):
             label_path = osp.join(data_dir, label_path)
             if osp.exists(image_path) and osp.exists(label_path):
                 data_list.append((image_path, label_path))
-        return data_list[:90]
+        return data_list
 
     def _get_transforms(self, phase, size) -> nn.Sequential:
         mean = [0.485, 0.456, 0.406]

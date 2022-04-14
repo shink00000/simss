@@ -22,8 +22,7 @@ def main(args):
     scheduler = cfg.build_scheduler(optimizer)
     metric = cfg.build_metric()
 
-    train_writer = SummaryWriter(osp.join(args.out_dir, 'train'))
-    val_writer = SummaryWriter(osp.join(args.out_dir, 'val'))
+    writer = SummaryWriter(args.out_dir)
 
     for e in range(cfg.start_epoch, cfg.epochs+1):
         model.train()
@@ -62,13 +61,15 @@ def main(args):
             'scheduler': scheduler.state_dict()
         }
         torch.save(states, osp.join(args.out_dir, 'latest.pth'))
-        train_writer.add_scalar('Loss/train', train_loss, e)
-        val_writer.add_scalar('Loss/val', val_loss, e)
+        writer.add_scalar('Loss/train', train_loss, e)
+        writer.add_scalar('Loss/val', val_loss, e)
+        for i, last_lr in enumerate(scheduler.get_last_lr()):
+            writer.add_scalar(f'LearningRate/lr_{i}', last_lr, e)
         if evaluate:
             result = metric.compute()
             metric.reset()
             for metric_name, val in result.items():
-                val_writer.add_scalar(f'Metric/{metric_name}', val, e)
+                writer.add_scalar(f'Metric/{metric_name}', val, e)
 
         print(f'[{e}] loss: {train_loss:.04f}, val_loss: {val_loss:.04f}')
 
