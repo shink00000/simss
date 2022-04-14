@@ -25,4 +25,3 @@ scheduler:
 
 runtime:
   epochs: 200
-  eval_interval: 1
