@@ -7,18 +7,11 @@ from torchvision.models import (
 )
 
 
-__all__ = ['ResNet']
-
-
 class ResNet(nn.Module):
-    def __init__(self, depth, replace_stride_with_dilation=[False, False, False]):
+    def __init__(self, depth: int, **kwargs):
         super().__init__()
-        resnet = {
-            'R18': resnet18,
-            'R50': resnet50,
-            'X50': resnext50_32x4d
-        }[depth](pretrained=True, replace_stride_with_dilation=replace_stride_with_dilation)
-        for name, m in resnet.named_children():
+        base = self.map_to_model(depth)(pretrained=True, **kwargs)
+        for name, m in base.named_children():
             if 'avgpool' in name:
                 break
             setattr(self, name, m)
@@ -37,3 +30,16 @@ class ResNet(nn.Module):
         x5 = self.layer4(x4)
 
         return x1, x2, x3, x4, x5
+
+    def map_to_model(self, depth):
+        return {
+            18: resnet18,
+            50: resnet50,
+        }[depth]
+
+
+class ResNeXt(ResNet):
+    def map_to_model(self, depth):
+        return {
+            50: resnext50_32x4d,
+        }[depth]

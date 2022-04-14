@@ -9,6 +9,7 @@ memo.ipynb
 # data
 data
 *.pth
+*.png
 results/test
 
 # cache

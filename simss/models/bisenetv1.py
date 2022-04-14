@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import numpy as np
 
 from .backbones import BACKBONES
 from .losses import OHEMCELoss
@@ -31,7 +32,7 @@ class AttentionRefinementModule(nn.Module):
     def __init__(self, channels):
         super().__init__()
         self.conv_atten = nn.Sequential(
-            nn.AdaptiveAvgPool1d(output_size=(1, 1)),
+            nn.AdaptiveAvgPool2d(output_size=(1, 1)),
             ConvModule(channels, channels, kernel_size=1, activate=False),
             nn.Sigmoid()
         )
@@ -48,8 +49,8 @@ class ContextPath(nn.Module):
         self.backbone = BACKBONES[backbone.pop('type')](**backbone)
         self.arm5 = AttentionRefinementModule(self.backbone.C5)
         self.arm4 = AttentionRefinementModule(self.backbone.C4)
-        self.conv_head5 = ConvModule(self.backbone.C5, self.backbone.C4)
-        self.conv_head4 = ConvModule(self.backbone.C4, out_channels)
+        self.conv_head5 = ConvModule(self.backbone.C5, self.backbone.C4, 3, padding=1)
+        self.conv_head4 = ConvModule(self.backbone.C4, out_channels, 3, padding=1)
         self.pool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
         self.up = nn.UpsamplingNearest2d(scale_factor=2)
 
@@ -134,6 +135,21 @@ class BiSeNetV1(nn.Module):
             OHEMCELoss(ignore_index=255, reduction='mean')
         ])
 
+    def _init_weights(self):
+        for name, m in self.named_modules():
+            if 'context_path.backbone' in name:
+                continue
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, nonlinearity='relu')
+                if m.bias is not None:
+                    if 'seg_top' in name:
+                        nn.init.constant_(m.bias, np.log((1 - 0.01) / 0.01))
+                    else:
+                        nn.init.constant_(m.bias, 0.0)
+            elif isinstance(m, nn.BatchNorm2d):
+                nn.init.constant_(m.weight, 1.0)
+                nn.init.constant_(m.bias, 0.0)
+
     def forward(self, x):
         x_cp, *auxs = self.context_path(x)
         x_sp = self.spatial_path(x)
@@ -141,6 +157,24 @@ class BiSeNetV1(nn.Module):
         out = self.head(x)
         aux_outs = [self.aux_head[i](auxs[i]) for i in range(2)]
         return (out, *aux_outs)
+
+    def parameters(self, cfg):
+        base_lr = cfg.pop('lr')
+        base_wd = cfg.pop('weight_decay', 0.0)
+        param_groups = [
+            {'params': [], 'lr': base_lr * 0.1, 'weight_decay': base_wd, **cfg},
+            {'params': [], 'lr': base_lr * 0.1, 'weight_decay': 0.0, **cfg},
+            {'params': [], 'lr': base_lr, 'weight_decay': base_wd, **cfg},
+            {'params': [], 'lr': base_lr, 'weight_decay': 0.0, **cfg},
+        ]
+        for name, p in self.named_parameters():
+            if p.requires_grad:
+                if 'context_path.backbone' in name:
+                    no = 0 if p.ndim != 1 else 1
+                else:
+                    no = 2 if p.ndim != 1 else 3
+                param_groups[no]['params'].append(p)
+        return param_groups
 
     def loss(self, outputs, target):
         out, *aux_outs = outputs
