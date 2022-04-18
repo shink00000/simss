@@ -1,4 +1,5 @@
 import yaml
+import os.path as osp
 import torch
 import torch.nn as nn
 from copy import deepcopy
@@ -14,7 +15,7 @@ from ..metrics.mean_iou import MeanIoU
 class Config:
     def __init__(self, config_path: str, resume_from: str = None):
         self.cfg = self._load_config(config_path)
-        if resume_from:
+        if resume_from and osp.exists(resume_from):
             self.checkpoint = self._load_checkpoint(resume_from)
             self.start_epoch = self.checkpoint['epoch'] + 1
         else:
