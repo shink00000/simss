@@ -64,7 +64,7 @@ class CityScapesDataset(Dataset):
                 T.RandomScaleCrop(scales=[0.5, 0.75, 1.0]),
                 T.Resize(size=size),
                 T.HorizontalFlip(p=0.5),
-                T.ColorJitter(brightness=0.4),
+                T.ColorJitter(brightness=0.5, contrast=0.5, saturation=0.5, hue=0.5),
                 T.Normalize(mean=mean, std=std),
                 T.Rotate(degrees=10)
             )
