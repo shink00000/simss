@@ -20,7 +20,6 @@ class Config:
         else:
             self.start_epoch = 1
         self.epochs = self.cfg['runtime']['epochs']
-        self.eval_interval = self.cfg['runtime'].get('eval_interval', 1)
 
     def build_dataloader(self, phase: str) -> DataLoader:
         cfg = deepcopy(self.cfg['dataset'])

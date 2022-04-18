@@ -9,5 +9,5 @@ class PolynomialLR(_LRScheduler):
         super().__init__(optimizer, last_epoch, verbose)
 
     def get_lr(self):
-        factor = (1 - self.last_epoch / self.max_iterations) ** self.power
+        factor = max(1 - self.last_epoch / self.max_iterations, 0) ** self.power
         return [max(group['initial_lr'] * factor, self.min_lr) for group in self.optimizer.param_groups]

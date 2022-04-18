@@ -41,15 +41,13 @@ def main(args):
 
         model.eval()
         val_loss = val_count = 0
-        evaluate = e % cfg.eval_interval == 0
         with torch.no_grad():
             for image, label in tqdm(val_dl, desc=f'[{e}] val'):
                 image, label = image.to(device), label.to(device)
                 outputs = model(image)
                 loss = model.loss(outputs, label)
-                if evaluate:
-                    pred = model.predict(outputs, label)
-                    metric.update(label, pred)
+                pred = model.predict(outputs, label)
+                metric.update(label, pred)
                 val_loss += loss * image.size(0)
                 val_count += image.size(0)
             val_loss = (val_loss / val_count).item()
@@ -65,11 +63,10 @@ def main(args):
         writer.add_scalar('Loss/val', val_loss, e)
         for i, last_lr in enumerate(scheduler.get_last_lr()):
             writer.add_scalar(f'LearningRate/lr_{i}', last_lr, e)
-        if evaluate:
-            result = metric.compute()
-            metric.reset()
-            for metric_name, val in result.items():
-                writer.add_scalar(f'Metric/{metric_name}', val, e)
+        result = metric.compute()
+        metric.reset()
+        for metric_name, val in result.items():
+            writer.add_scalar(f'Metric/{metric_name}', val, e)
 
         print(f'[{e}] loss: {train_loss:.04f}, val_loss: {val_loss:.04f}')
 
