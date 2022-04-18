@@ -22,7 +22,7 @@ scheduler:
   type: PolynomialLR
   max_iterations: 40000
   power: 0.9
-  warmup_iterarions: 1000
+  warmup_iterations: 1000
 
 runtime:
   epochs: 217
