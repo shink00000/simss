@@ -63,12 +63,12 @@ def test_horizontal_flip():
     save(image, label, 'horizontal_flip')
 
 
-def test_color_jitter():
+def test_photo_metric_distortion():
     data = load()
-    for arg in ['brightness', 'contrast', 'saturation', 'hue']:
-        t = T.ColorJitter(**{arg: 0.4})
+    for i in range(4):
+        t = T.PhotoMetricDistortion()
         image, label = t(data)
-        save(image, label, f'color_jitter_{arg}')
+        save(image, label, f'photo_{i}')
 
 
 def test_normalize():

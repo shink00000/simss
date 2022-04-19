@@ -71,14 +71,19 @@ class HorizontalFlip(nn.Module):
         return (image, label)
 
 
-class ColorJitter(nn.Module):
-    def __init__(self, brightness=0, contrast=0, saturation=0, hue=0):
+class PhotoMetricDistortion(nn.Module):
+    def __init__(self, brightness=0.125, contrast=0.5):
         super().__init__()
-        self.color_jitter = T.ColorJitter(brightness, contrast, saturation, hue)
+        self.brightness = brightness
+        self.contrast = contrast
 
     def forward(self, data: tuple):
         image, label = data
-        image = self.color_jitter(image)
+        image = (image + uniform(-self.brightness, self.brightness)).clip(0, 1)
+        image = (image * uniform(1-self.contrast, 1+self.contrast)).clip(0, 1)
+        image = image.clip(0, 1)
+        if random() > 0.5:
+            image = image[torch.randperm(3)]
         return (image, label)
 
 
