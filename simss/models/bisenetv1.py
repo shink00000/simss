@@ -168,12 +168,11 @@ class BiSeNetV1(nn.Module):
 
     def parameters(self, cfg):
         base_lr = cfg.pop('lr')
-        base_wd = cfg.pop('weight_decay', 0.0)
         param_groups = [
-            {'params': [], 'lr': base_lr * 0.1, 'weight_decay': base_wd, **cfg},
-            {'params': [], 'lr': base_lr * 0.1, 'weight_decay': 0.0, **cfg},
-            {'params': [], 'lr': base_lr, 'weight_decay': base_wd, **cfg},
-            {'params': [], 'lr': base_lr, 'weight_decay': 0.0, **cfg},
+            {'params': [], 'lr': base_lr * 0.1},
+            {'params': [], 'lr': base_lr * 0.1, 'weight_decay': 0.0},
+            {'params': []},
+            {'params': [], 'weight_decay': 0.0},
         ]
         for name, p in self.named_parameters():
             if p.requires_grad:

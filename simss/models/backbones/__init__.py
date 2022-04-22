@@ -1,5 +1,8 @@
 from .resnet import ResNet
+from .mit import MiT
+
 
 BACKBONES = {
-    'ResNet': ResNet
+    'ResNet': ResNet,
+    'MiT': MiT
 }
