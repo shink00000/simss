@@ -72,15 +72,20 @@ class SegFormer(nn.Module):
         return out
 
     def parameters(self, cfg):
+        base_lr = cfg.pop('lr')
         param_groups = [
+            {'params': [], 'lr': base_lr * 0.1},
+            {'params': [], 'lr': base_lr * 0.1, 'weight_decay': 0.0},
             {'params': [], 'weight_decay': 0.0},
             {'params': []}
         ]
         for name, p in self.named_parameters():
-            if 'norm' in name:
-                param_groups[0]['params'].append(p)
-            else:
-                param_groups[1]['params'].append(p)
+            if p.requires_grad:
+                if 'encoder' in name:
+                    no = 0 if p.ndim != 1 else 1
+                else:
+                    no = 2 if p.ndim != 1 else 3
+                param_groups[no]['params'].append(p)
 
         return param_groups
 
