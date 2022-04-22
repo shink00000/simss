@@ -8,15 +8,15 @@ from .losses import OHEMCELoss
 
 
 class SegFormerHead(nn.Module):
-    def __init__(self, in_channels: list, channels: int, n_classes: int, drop_rate: float = 0.1):
+    def __init__(self, in_channels: list, n_classes: int, drop_rate: float = 0.1):
         super().__init__()
-        self.mlp_layers = nn.ModuleList([nn.Conv2d(in_channels[i], channels, 1) for i in range(4)])
+        self.mlp_layers = nn.ModuleList([nn.Conv2d(in_channels[i], 256, 1) for i in range(4)])
         self.mlp = nn.Sequential(
-            nn.Conv2d(4*channels, channels, 1),
+            nn.Conv2d(4*256, 256, 1),
             nn.ReLU(inplace=True)
         )
         self.drop = nn.Dropout2d(drop_rate)
-        self.seg_top = nn.Conv2d(channels, n_classes, 1)
+        self.seg_top = nn.Conv2d(256, n_classes, 1)
 
         self._init_weights()
 
@@ -55,7 +55,6 @@ class SegFormer(nn.Module):
         self.encoder = MiT(scale)
         self.decoder = SegFormerHead(
             in_channels=[self.encoder.C2, self.encoder.C3, self.encoder.C4, self.encoder.C5],
-            channels=self._channels(scale),
             n_classes=n_classes
         )
 
@@ -104,13 +103,3 @@ class SegFormer(nn.Module):
     @staticmethod
     def _resize(x, size):
         return F.interpolate(x, size, mode='bilinear', align_corners=True)
-
-    def _channels(self, scale):
-        return {
-            'b0': 256,
-            'b1': 256,
-            'b2': 768,
-            'b3': 768,
-            'b4': 768,
-            'b5': 768
-        }[scale]
