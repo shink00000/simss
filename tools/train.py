@@ -76,7 +76,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('config_path', type=str)
-    parser.add_argument('--out_dir', type=str, default='./results/test')
+    parser.add_argument('--out_dir', type=str, default='./results')
     parser.add_argument('--resume_from', type=str, default=None)
     args = parser.parse_args()
 
