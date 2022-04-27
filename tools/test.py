@@ -22,22 +22,26 @@ def main(args):
     with torch.no_grad():
         for image, label in tqdm(test_dl):
             image, label = image.to(device), label.to(device)
-            aug_pred = None
-            for factor in [0.5, 0.75, 1.0, 1.25, 1.5, 1.75]:
-                image = F.interpolate(image, scale_factor=factor, mode='bilinear', align_corners=True)
-                for flip in [True, False]:
-                    if flip:
-                        image = image.flip(dims=[-1])
-                    output = model(image)
-                    pred = model.predict(output, label)
-                    if flip:
-                        pred = pred.flip(dims=[-1])
-                    if aug_pred is None:
-                        aug_pred = pred
-                    else:
-                        aug_pred += pred
-            aug_pred /= 12
-            metric.update(label, aug_pred)
+            if cfg.ms_flip:
+                pred = None
+                for factor in [0.5, 0.75, 1.0, 1.25, 1.5, 1.75]:
+                    image = F.interpolate(image, scale_factor=factor, mode='bilinear', align_corners=True)
+                    for flip in [True, False]:
+                        if flip:
+                            image = image.flip(dims=[-1])
+                        output = model(image)
+                        tmp_pred = model.predict(output, label)
+                        if flip:
+                            tmp_pred = tmp_pred.flip(dims=[-1])
+                        if pred is None:
+                            pred = tmp_pred
+                        else:
+                            pred += tmp_pred
+                pred /= 12
+            else:
+                output = model(image)
+                pred = model.predict(output, label)
+            metric.update(label, pred)
     metric.compute()
 
 
