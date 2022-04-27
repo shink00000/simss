@@ -6,7 +6,7 @@ class MeanIoU(Metric):
     """
     Inputs:
         y_true: (N, H, W)
-        y_pred: (N, H, W)
+        y_pred: (N, C, H, W) logits
     """
 
     def __init__(self, n_classes: int, class_names: list, ignore_index: int = 255):
@@ -19,6 +19,8 @@ class MeanIoU(Metric):
         self.add_state('confmat', default=torch.zeros(n_classes, n_classes), dist_reduce_fx='sum')
 
     def update(self, y_true: torch.Tensor, y_pred: torch.Tensor):
+        y_pred = y_pred.argmax(dim=1)
+
         y_true = y_true.flatten()
         y_pred = y_pred.flatten()
 

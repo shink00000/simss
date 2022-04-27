@@ -68,9 +68,13 @@ class CityScapesDataset(Dataset):
                 T.Normalize(mean=mean, std=std),
                 T.Rotate(degrees=10)
             )
-        else:
+        elif phase == 'val':
             transforms = nn.Sequential(
                 T.Resize(size=size),
+                T.Normalize(mean=mean, std=std)
+            )
+        else:
+            transforms = nn.Sequential(
                 T.Normalize(mean=mean, std=std)
             )
         return transforms

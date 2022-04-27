@@ -163,8 +163,8 @@ class BiSeNetV1(nn.Module):
         x_sp = self.spatial_path(x)
         x = self.ffm(x_cp, x_sp)
         out = self.head(x)
-        aux_outs = [self.aux_head[i](auxs[i]) for i in range(2)]
-        return (out, *aux_outs)
+        auxs = [self.aux_head[i](auxs[i]) for i in range(2)]
+        return (out, *auxs)
 
     def parameters(self, cfg):
         base_lr = cfg.pop('lr')
@@ -183,22 +183,22 @@ class BiSeNetV1(nn.Module):
                 param_groups[no]['params'].append(p)
         return param_groups
 
-    def loss(self, outputs, target):
-        out, *aux_outs = outputs
+    def loss(self, output, target):
+        out, *auxs = output
         out = self._resize(out, target.size()[1:])
-        aux_outs = [self._resize(aux_out, target.size()[1:])
-                    for aux_out in aux_outs]
+        auxs = [self._resize(aux, target.size()[1:])
+                for aux in auxs]
 
         loss = self.seg_loss(out, target)
         for i in range(2):
-            loss += self.aux_loss[i](aux_outs[i], target)
+            loss += self.aux_loss[i](auxs[i], target)
 
         return loss
 
-    def predict(self, outputs, target):
-        out, *_ = outputs
+    def predict(self, output, target):
+        out, *_ = output
         out = self._resize(out, target.size()[1:])
-        out = out.argmax(dim=1)
+        out = F.softmax(out, dim=1)
         return out
 
     @staticmethod

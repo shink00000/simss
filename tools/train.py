@@ -29,8 +29,8 @@ def main(args):
         train_loss = train_count = 0
         for image, label in tqdm(train_dl, desc=f'[{e}] train'):
             image, label = image.to(device), label.to(device)
-            outputs = model(image)
-            loss = model.loss(outputs, label)
+            output = model(image)
+            loss = model.loss(output, label)
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
@@ -44,9 +44,9 @@ def main(args):
         with torch.no_grad():
             for image, label in tqdm(val_dl, desc=f'[{e}] val'):
                 image, label = image.to(device), label.to(device)
-                outputs = model(image)
-                loss = model.loss(outputs, label)
-                pred = model.predict(outputs, label)
+                output = model(image)
+                loss = model.loss(output, label)
+                pred = model.predict(output, label)
                 metric.update(label, pred)
                 val_loss += loss * image.size(0)
                 val_count += image.size(0)

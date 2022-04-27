@@ -25,6 +25,8 @@ class Config:
     def build_dataloader(self, phase: str) -> DataLoader:
         cfg = deepcopy(self.cfg['dataset'])
         loader_cfg = cfg.pop('loader', {})
+        if phase == 'test':
+            loader_cfg.update({'batch_size': 1})
         dataset = DATASETS[cfg.pop('type')](phase=phase, **cfg)
         self.n_classes = dataset.n_classes
         self.class_names = dataset.class_names

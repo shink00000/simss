@@ -32,6 +32,8 @@ for phase in ['train', 'val']:
     path_list = [f'{images[key]} {labels[key]}\n' for key in sorted(images.keys())]
     with open(dst_dir/f'{phase}.txt', 'w') as f:
         f.writelines(path_list)
+with open(dst_dir/'test.txt', 'w') as f:
+    f.writelines(path_list)
 
 with open(dst_dir/'labelmap.json', 'w') as f:
     json.dump({

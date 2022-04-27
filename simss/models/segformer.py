@@ -4,7 +4,6 @@ import torch.nn.functional as F
 import numpy as np
 
 from .backbones import MiT
-from .losses import OHEMCELoss
 
 
 class SegFormerHead(nn.Module):
@@ -58,11 +57,7 @@ class SegFormer(nn.Module):
             n_classes=n_classes
         )
 
-        self.seg_loss = OHEMCELoss(ignore_index=255, reduction='mean')
-        self.aux_loss = nn.ModuleList([
-            OHEMCELoss(ignore_index=255, reduction='mean'),
-            OHEMCELoss(ignore_index=255, reduction='mean')
-        ])
+        self.seg_loss = nn.CrossEntropyLoss(ignore_index=255, reduction='mean')
 
     def forward(self, x):
         xs = self.encoder(x)
@@ -96,7 +91,7 @@ class SegFormer(nn.Module):
 
     def predict(self, output, target):
         output = self._resize(output, target.size()[1:])
-        output = output.argmax(dim=1)
+        output = F.softmax(output, dim=1)
 
         return output
 
