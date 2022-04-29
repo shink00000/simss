@@ -44,15 +44,12 @@ class RandomCrop(nn.Module):
         if ch < h and cw < w:
             for _ in range(10):
                 cy, cx = randint(0, h - ch), randint(0, w - cw)
-                cropped_label = label[:, cy:cy+ch, cx:cx+cw]
-                _, counts = cropped_label[cropped_label != self.ignore_index].unique(return_counts=True)
+                crop = label[:, cy:cy+ch, cx:cx+cw]
+                counts = crop[crop != self.ignore_index].unique(return_counts=True)[1]
                 if len(counts) > 1 and (counts.max()/counts.sum() < self.cat_max_ratio):
-                    image = image[:, cy:cy+ch, cx:cx+cw]
-                    label = cropped_label
                     break
-            else:
-                image = F.resize(image, self.crop_size, interpolation=T.InterpolationMode.BILINEAR)
-                label = F.resize(label, self.crop_size, interpolation=T.InterpolationMode.NEAREST)
+            image = image[:, cy:cy+ch, cx:cx+cw]
+            label = label[:, cy:cy+ch, cx:cx+cw]
 
         return (image, label)
 
