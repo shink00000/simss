@@ -37,16 +37,17 @@ def save(image, label, file_name):
 
 def test_copy_paste():
     data = load_with_copy()
-    t = T.CopyPaste(ignore_index=255, p=0.5)
+    t = T.CopyPaste(ignore_index=255, p=1.0)
     image, label = t(data)
     save(image, label, 'copy_paste')
 
 
-def test_random_scale_crop():
+def test_random_crop():
     data = load()
-    t = T.RandomScaleCrop([0.5, 0.75, 1.0])
-    image, label = t(data)
-    save(image, label, 'random_scale_crop')
+    for i in range(4):
+        t = T.RandomCrop(crop_size=[512, 1024])
+        image, label = t(data)
+        save(image, label, f'random_crop_{i}')
 
 
 def test_resize():
