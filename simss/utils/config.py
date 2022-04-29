@@ -21,7 +21,6 @@ class Config:
         else:
             self.start_epoch = 1
         self.epochs = self.cfg['runtime']['epochs']
-        self.ms_flip = self.cfg['testtime']['ms_flip']
 
     def build_dataloader(self, phase: str) -> DataLoader:
         cfg = deepcopy(self.cfg['dataset'])
