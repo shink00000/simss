@@ -4,7 +4,7 @@ from simss.models.backbones.resnet import ResNet
 
 
 def test_resnet():
-    model = ResNet(depth='R18')
+    model = ResNet(depth=18)
     x = torch.rand(2, 3, 32, 32)
     y = model(x)
     for i in range(1, 6):
