@@ -43,7 +43,7 @@ class RandomCrop(nn.Module):
         ch, cw = self.crop_size
         if ch < h and cw < w:
             for _ in range(10):
-                cy, cx = randint(0, h - ch), randint(0, w - cw)
+                cy, cx = randint(0, h - ch - 1), randint(0, w - cw - 1)
                 crop = label[:, cy:cy+ch, cx:cx+cw]
                 counts = crop[crop != self.ignore_index].unique(return_counts=True)[1]
                 if len(counts) > 1 and (counts.max()/counts.sum() < self.cat_max_ratio):
@@ -125,7 +125,7 @@ class PhotoMetricDistortion(nn.Module):
     def _adjust_hue(self, image):
         if randint(0, 1):
             image[0] = image[0] + 180 * uniform(-self.hue, self.hue)
-            image[0] = image[0] % 180
+            image[0] = image[0] % 360
         return image
 
     def _rgb_to_hsv(self, image, eps=1e-8):
@@ -151,7 +151,7 @@ class PhotoMetricDistortion(nn.Module):
         x = c * (1 - (h / 60 % 2 - 1).abs())
         m = v - c
         z = torch.zeros_like(c)
-        h_id = (h / 60).long()
+        h_id = (h / 60).long().clip(0, 5)
         r_ = torch.stack([c, x, z, z, x, c], dim=0).gather(dim=0, index=h_id[None])
         g_ = torch.stack([x, c, c, x, z, z], dim=0).gather(dim=0, index=h_id[None])
         b_ = torch.stack([z, z, x, c, c, x], dim=0).gather(dim=0, index=h_id[None])

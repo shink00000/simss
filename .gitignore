@@ -10,7 +10,7 @@ memo.ipynb
 data
 *.pth
 *.png
-results/test
+results
 
 # cache
 __pycache__
