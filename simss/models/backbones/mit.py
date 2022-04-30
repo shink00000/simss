@@ -82,18 +82,18 @@ class MixFFN(nn.Module):
     def __init__(self, embed_dim, drop_path_rate):
         super().__init__()
         hidden_dim = 4 * embed_dim
-        self.fc1 = nn.Conv2d(embed_dim, hidden_dim, 1)
+        self.fc1 = nn.Linear(embed_dim, hidden_dim)
         self.conv = nn.Conv2d(hidden_dim, hidden_dim, 3, padding=1, groups=hidden_dim)
         self.act = nn.GELU()
-        self.fc2 = nn.Conv2d(hidden_dim, embed_dim, 1)
+        self.fc2 = nn.Linear(hidden_dim, embed_dim)
         self.drop_path = DropPath(drop_path_rate)
 
     def forward(self, x, x0, h, w):
-        x = nlc_to_nchw(x, h, w)
         x = self.fc1(x)
+        x = nlc_to_nchw(x, h, w)
         x = self.act(self.conv(x))
-        x = self.fc2(x)
         x = nchw_to_nlc(x)
+        x = self.fc2(x)
         out = x0 + self.drop_path(x)
 
         return out
