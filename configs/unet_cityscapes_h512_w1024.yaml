@@ -3,11 +3,12 @@ dataset:
   data_dir: ./data/cityscapes_ss/
   size: [512, 1024]
   loader:
-    batch_size: 4
+    batch_size: 3
     num_workers: 2
 
 model:
   type: UNet
+  channels: 64
 
 optimizer:
   type: SGD
