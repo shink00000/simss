@@ -72,7 +72,7 @@ class UNet(nn.Module):
             ExpandingStage(channels*2**2, channels*2**1),
             ExpandingStage(channels*2**1, channels*2**0)
         ])
-        self.seg_top = nn.Conv2d(64, n_classes, 1)
+        self.seg_top = nn.Conv2d(channels, n_classes, 1)
 
         self._init_weights()
 
