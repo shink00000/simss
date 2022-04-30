@@ -203,4 +203,4 @@ class BiSeNetV1(nn.Module):
 
     @staticmethod
     def _resize(x, size):
-        return F.interpolate(x, size, mode='bilinear', align_corners=True)
+        return F.interpolate(x, size, mode='bilinear', align_corners=False)

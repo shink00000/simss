@@ -14,7 +14,7 @@ git clone https://github.com/shink00000/simss.git
 cd simss
 
 gsutil cp gs://simss-data/cityscapes_ss.zip .
-gsutil cp gs://simss-data/assets/mit_b2.pth ./assets
+gsutil cp gs://simss-data/assets/mit_b0.pth ./assets
 unzip cityscapes_ss.zip -d ./data
 rm cityscapes_ss.zip
 

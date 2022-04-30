@@ -6,14 +6,26 @@ import numpy as np
 from .backbones import MiT
 
 
+class ConvModule(nn.Module):
+    def __init__(self, in_channels: int, out_channels: int, stride: int):
+        super().__init__()
+        self.conv = nn.Conv2d(in_channels, out_channels, stride, bias=False)
+        self.norm = nn.BatchNorm2d(out_channels)
+        self.act = nn.ReLU(inplace=True)
+
+    def forward(self, x):
+        x = self.conv(x)
+        x = self.norm(x)
+        out = self.act(x)
+
+        return out
+
+
 class SegFormerHead(nn.Module):
     def __init__(self, in_channels: list, n_classes: int, drop_rate: float = 0.1):
         super().__init__()
-        self.mlp_layers = nn.ModuleList([nn.Conv2d(in_channels[i], 256, 1) for i in range(4)])
-        self.mlp = nn.Sequential(
-            nn.Conv2d(4*256, 256, 1),
-            nn.ReLU(inplace=True)
-        )
+        self.mlp_layers = nn.ModuleList([ConvModule(in_channels[i], 256, 1) for i in range(4)])
+        self.mlp = ConvModule(4*256, 256, 1)
         self.drop = nn.Dropout2d(drop_rate)
         self.seg_top = nn.Conv2d(256, n_classes, 1)
 
@@ -45,7 +57,7 @@ class SegFormerHead(nn.Module):
 
     @staticmethod
     def _resize(x, size):
-        return F.interpolate(x, size, mode='bilinear', align_corners=True)
+        return F.interpolate(x, size, mode='bilinear', align_corners=False)
 
 
 class SegFormer(nn.Module):
@@ -97,4 +109,4 @@ class SegFormer(nn.Module):
 
     @staticmethod
     def _resize(x, size):
-        return F.interpolate(x, size, mode='bilinear', align_corners=True)
+        return F.interpolate(x, size, mode='bilinear', align_corners=False)

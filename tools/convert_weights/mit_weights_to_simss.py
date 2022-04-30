@@ -7,7 +7,7 @@ import os
 os.makedirs('./assets', exist_ok=True)
 for i in range(6):
 
-    targets = torch.load(f'mit_b{i}.pth')
+    targets = torch.load(f'./assets/original/mit_b{i}.pth')
 
     m = MiT(f'b{i}')
     state_dict = OrderedDict()
@@ -52,6 +52,8 @@ for i in range(6):
                 sub, param = etc
                 sub = {'fc1': 'fc1', 'fc2': 'fc2', 'conv': 'dwconv.dwconv'}[sub]
                 target_key = f'block{int(block_no)+1}.{layer_no}.mlp.{sub}.{param}'
+                if sub.startswith('fc') and param == 'weight':
+                    targets[target_key] = targets[target_key][..., None, None]
                 state_dict[name] = targets[target_key]
             else:
                 raise NotImplementedError
