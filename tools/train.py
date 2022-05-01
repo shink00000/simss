@@ -38,6 +38,7 @@ def main(args):
             train_loss += loss * image.size(0)
             train_count += image.size(0)
         train_loss = (train_loss / train_count).item()
+        del image, label, output, loss
 
         model.eval()
         val_loss = val_count = 0
@@ -51,6 +52,7 @@ def main(args):
                 val_loss += loss * image.size(0)
                 val_count += image.size(0)
             val_loss = (val_loss / val_count).item()
+            del image, label, output, loss, pred
 
         states = {
             'epoch': e,
