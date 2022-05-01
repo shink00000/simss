@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import numpy as np
 
 from .backbones import BACKBONES
 from .losses import OHEMCELoss
@@ -147,15 +146,11 @@ class BiSeNetV1(nn.Module):
             if 'context_path.backbone' in name:
                 continue
             if isinstance(m, nn.Conv2d):
-                nn.init.kaiming_normal_(m.weight, nonlinearity='relu')
-                if m.bias is not None:
-                    if 'seg_top' in name:
-                        nn.init.constant_(m.bias, np.log((1 - 0.01) / 0.01))
-                    else:
-                        nn.init.constant_(m.bias, 0.0)
-            elif isinstance(m, nn.BatchNorm2d):
-                nn.init.constant_(m.weight, 1.0)
-                nn.init.constant_(m.bias, 0.0)
+                if 'seg_top' in name:
+                    nn.init.normal_(m.weight, std=0.01)
+                    nn.init.constant_(m.bias, 0.0)
+                else:
+                    nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
 
     def forward(self, x):
         x4, x5 = self.context_path(x)
@@ -166,22 +161,8 @@ class BiSeNetV1(nn.Module):
         auxs = [self.aux_head[i](auxs[i]) for i in range(2)]
         return (out, *auxs)
 
-    def parameters(self, cfg):
-        base_lr = cfg['lr']
-        param_groups = [
-            {'params': [], 'lr': base_lr * 0.1, 'weight_decay': 0.0},
-            {'params': [], 'lr': base_lr * 0.1},
-            {'params': [], 'weight_decay': 0.0},
-            {'params': []}
-        ]
-        for name, p in self.named_parameters():
-            if p.requires_grad:
-                if 'context_path.backbone' in name:
-                    no = 0 if p.ndim == 1 else 1
-                else:
-                    no = 2 if p.ndim == 1 else 3
-                param_groups[no]['params'].append(p)
-        return param_groups
+    def parameters(self, cfg, recurse: bool = True):
+        return super().parameters(recurse)
 
     def loss(self, output, target):
         out, *auxs = output

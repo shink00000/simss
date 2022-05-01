@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import numpy as np
 
 
 class ConvModule(nn.Module):
@@ -140,9 +139,8 @@ class UNet(nn.Module):
     def _init_weights(self):
         for name, m in self.named_modules():
             if isinstance(m, nn.Conv2d):
-                nn.init.kaiming_normal_(m.weight, nonlinearity='relu')
-                if m.bias is not None:
-                    if 'seg_top' in name:
-                        nn.init.constant_(m.bias, np.log((1 - 0.01) / 0.01))
-                    else:
-                        nn.init.constant_(m.bias, 0.0)
+                if 'seg_top' in name:
+                    nn.init.normal_(m.weight, std=0.01)
+                    nn.init.constant_(m.bias, 0.0)
+                else:
+                    nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
