@@ -1,14 +1,7 @@
 import torch
 import torch.nn as nn
 
-
-def nlc_to_nchw(x, h, w):
-    n, _, c = x.shape
-    return x.transpose(1, 2).view(n, c, h, w)
-
-
-def nchw_to_nlc(x):
-    return x.flatten(2).transpose(1, 2)
+from .common import nlc_to_nchw, nchw_to_nlc, DropPath, MultiheadAttention
 
 
 class OverlapPatchEmbeding(nn.Module):
@@ -32,30 +25,10 @@ class OverlapPatchEmbeding(nn.Module):
         return out, h, w
 
 
-class DropPath(nn.Module):
-    def __init__(self, drop_path_rate):
-        super().__init__()
-        self.drop_path_rate = drop_path_rate
-
-    def forward(self, x):
-        if self.drop_path_rate == 0 or not self.training:
-            return x
-        keep_prob = 1 - self.drop_path_rate
-        shape = (x.shape[0],) + (1,) * (x.ndim - 1)
-        random_tensor = x.new_empty(shape).bernoulli_(keep_prob)
-        if keep_prob > 0.0:
-            random_tensor.div_(keep_prob)
-
-        return x * random_tensor
-
-    def extra_repr(self) -> str:
-        return f'drop_prob={self.drop_path_rate}'
-
-
 class EfficientSelfAttention(nn.Module):
     def __init__(self, embed_dim, n_heads, reduce_ratio, drop_path_rate):
         super().__init__()
-        self.attn = nn.MultiheadAttention(embed_dim, n_heads, batch_first=True)
+        self.attn = MultiheadAttention(embed_dim, n_heads)
         if reduce_ratio > 1:
             self.reduction = nn.Conv2d(embed_dim, embed_dim, reduce_ratio, stride=reduce_ratio)
             self.norm = nn.LayerNorm(embed_dim, eps=1e-6)
@@ -72,7 +45,7 @@ class EfficientSelfAttention(nn.Module):
         else:
             x_kv = x
 
-        x, _ = self.attn(x_q, x_kv, x_kv, need_weights=False)
+        x = self.attn(x_q, x_kv, x_kv)
         out = x0 + self.drop_path(x)
 
         return out
@@ -140,7 +113,7 @@ class TransformerBlock(nn.Module):
 
 
 class MiT(nn.Module):
-    def __init__(self, scale: str = 'b3'):
+    def __init__(self, scale: str = 'b3', pretrain: str = None):
         assert scale in ('b0', 'b1', 'b2', 'b3', 'b4', 'b5')
 
         super().__init__()
@@ -172,8 +145,9 @@ class MiT(nn.Module):
         for i, embed_dim in enumerate(embed_dims, start=2):
             setattr(self, f'C{i}', embed_dim)
 
-        # self._init_weights()
-        self.load_state_dict(torch.load(f'./assets/mit_{scale}.pth'))
+        self._init_weights()
+        if pretrain:
+            self.load_state_dict(torch.load(pretrain))
 
     def forward(self, x):
         outs = []

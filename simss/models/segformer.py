@@ -59,9 +59,9 @@ class SegFormerHead(nn.Module):
 
 
 class SegFormer(nn.Module):
-    def __init__(self, scale: str, n_classes: int):
+    def __init__(self, scale: str, n_classes: int, pretrain: str):
         super().__init__()
-        self.encoder = MiT(scale)
+        self.encoder = MiT(scale, pretrain)
         self.decoder = SegFormerHead(
             in_channels=[self.encoder.C2, self.encoder.C3, self.encoder.C4, self.encoder.C5],
             n_classes=n_classes

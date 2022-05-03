@@ -9,6 +9,7 @@ dataset:
 model:
   type: SegFormer
   scale: b0
+  pretrain: ./assets/mit_b0.pth
 
 optimizer:
   type: AdamW

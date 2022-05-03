@@ -45,6 +45,8 @@ class CityScapesDataset(Dataset):
 
     def _get_data_list(self, data_dir, phase):
         data_list = []
+        if phase == 'test':
+            phase = 'val'
         with open(osp.join(data_dir, f'{phase}.txt'), 'r') as f:
             pathlist = f.readlines()
         for line in pathlist:

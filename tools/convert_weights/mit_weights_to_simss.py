@@ -1,10 +1,8 @@
 import torch
 from simss.models.backbones import MiT
 from collections import OrderedDict
-import os
 
 
-os.makedirs('./assets', exist_ok=True)
 for i in range(6):
 
     targets = torch.load(f'./assets/original/mit_b{i}.pth')
@@ -28,7 +26,7 @@ for i in range(6):
                 sub, *etc = etc
                 if sub == 'attn':
                     if 'in_proj' in etc[0]:
-                        param = etc[0].split('_')[-1]
+                        param = etc[-1]
                         target_key_1 = f'block{int(block_no)+1}.{layer_no}.attn.q.{param}'
                         target_key_2 = f'block{int(block_no)+1}.{layer_no}.attn.kv.{param}'
                         state_dict[name] = torch.cat([targets[target_key_1], targets[target_key_2]], dim=0)

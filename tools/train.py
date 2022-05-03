@@ -74,7 +74,7 @@ def main(args):
         val_loss = val_loop(e, device, val_dl, model, metric, writer)
 
         states = {
-            'epoch_no': e,
+            'epoch': e,
             'model': model.state_dict(),
             'optimizer': optimizer.state_dict(),
             'scheduler': scheduler.state_dict()
