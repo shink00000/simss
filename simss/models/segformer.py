@@ -7,9 +7,9 @@ from .layers import Conv2dWS
 
 
 class ConvModule(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, stride: int):
+    def __init__(self, in_channels: int, out_channels: int, kernel_size: int):
         super().__init__()
-        self.conv = Conv2dWS(in_channels, out_channels, stride, bias=False)
+        self.conv = Conv2dWS(in_channels, out_channels, kernel_size, bias=False)
         self.norm = nn.GroupNorm(32, out_channels)
         self.act = nn.ReLU(inplace=True)
 
