@@ -1,5 +1,5 @@
 import torch
-from simss.models.backbones import MiT
+from simss.models.backbones import MixTransformer
 from collections import OrderedDict
 
 
@@ -7,7 +7,7 @@ for i in range(6):
 
     targets = torch.load(f'./assets/original/mit_b{i}.pth')
 
-    m = MiT(f'b{i}')
+    m = MixTransformer(f'b{i}')
     state_dict = OrderedDict()
     for name, p in m.named_parameters():
         _, block_no, block, *etc = name.split('.')

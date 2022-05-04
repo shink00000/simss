@@ -112,7 +112,7 @@ class TransformerBlock(nn.Module):
         return out
 
 
-class MiT(nn.Module):
+class MixTransformer(nn.Module):
     def __init__(self, scale: str = 'b3', pretrain: str = None):
         assert scale in ('b0', 'b1', 'b2', 'b3', 'b4', 'b5')
 
@@ -191,7 +191,7 @@ class MiT(nn.Module):
 
 
 if __name__ == '__main__':
-    m = MiT('b3')
+    m = MixTransformer('b3')
     x = torch.rand(2, 3, 128, 128)
     outs = m(x)
     for out in outs:
