@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from .common import nlc_to_nchw, nchw_to_nlc, DropPath, MultiheadAttention
+from ..layers import nlc_to_nchw, nchw_to_nlc, DropPath, MultiheadAttention
 
 
 class OverlapPatchEmbeding(nn.Module):
@@ -94,10 +94,10 @@ class TransformerBlock(nn.Module):
         self.patch = OverlapPatchEmbeding(in_channels, embed_dim, patch_size, stride)
         self.layers = nn.ModuleList([
             TransformerLayer(
-                embed_dim,
-                n_heads,
-                reduce_ratio,
-                drop_path_rates[i]
+                embed_dim=embed_dim,
+                n_heads=n_heads,
+                reduce_ratio=reduce_ratio,
+                drop_path_rate=drop_path_rates[i]
             ) for i in range(n_layers)
         ])
         self.norm = nn.LayerNorm(embed_dim, eps=1e-6)

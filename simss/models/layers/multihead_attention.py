@@ -3,40 +3,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
-def nlc_to_nchw(x, h, w):
-    n, _, c = x.shape
-    return x.transpose(1, 2).view(n, c, h, w)
-
-
-def nlc_to_nhwc(x, h, w):
-    n, _, c = x.shape
-    return x.view(n, c, h, w)
-
-
-def nchw_to_nlc(x):
-    return x.flatten(2).transpose(1, 2)
-
-
-class DropPath(nn.Module):
-    def __init__(self, drop_path_rate):
-        super().__init__()
-        self.drop_path_rate = drop_path_rate
-
-    def forward(self, x):
-        if self.drop_path_rate == 0 or not self.training:
-            return x
-        keep_prob = 1 - self.drop_path_rate
-        shape = (x.shape[0],) + (1,) * (x.ndim - 1)
-        random_tensor = x.new_empty(shape).bernoulli_(keep_prob)
-        if keep_prob > 0.0:
-            random_tensor.div_(keep_prob)
-
-        return x * random_tensor
-
-    def extra_repr(self) -> str:
-        return f'drop_prob={self.drop_path_rate}'
-
-
 class MultiheadAttention(nn.Module):
     """
     A little modified: https://pytorch.org/docs/stable/generated/torch.nn.MultiheadAttention.html

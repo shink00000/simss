@@ -3,13 +3,14 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from .backbones import MiT
+from .layers import Conv2dWS
 
 
 class ConvModule(nn.Module):
     def __init__(self, in_channels: int, out_channels: int, stride: int):
         super().__init__()
-        self.conv = nn.Conv2d(in_channels, out_channels, stride, bias=False)
-        self.norm = nn.BatchNorm2d(out_channels)
+        self.conv = Conv2dWS(in_channels, out_channels, stride, bias=False)
+        self.norm = nn.GroupNorm(32, out_channels)
         self.act = nn.ReLU(inplace=True)
 
     def forward(self, x):
@@ -86,9 +87,9 @@ class SegFormer(nn.Module):
         for name, p in self.named_parameters():
             if p.requires_grad:
                 if 'encoder' in name:
-                    no = 0 if p.ndim == 1 in name else 1
+                    no = 0 if p.ndim == 1 else 1
                 else:
-                    no = 2 if p.ndim == 1 in name else 3
+                    no = 2 if p.ndim == 1 else 3
                 param_groups[no]['params'].append(p)
 
         return param_groups
