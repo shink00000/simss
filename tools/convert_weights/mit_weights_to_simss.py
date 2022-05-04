@@ -5,7 +5,7 @@ from collections import OrderedDict
 
 for i in range(6):
 
-    targets = torch.load(f'./assets/original/mit_b{i}.pth')
+    targets = torch.load(f'./assets/original/mit_b{i}.pth', map_location='cpu')
 
     m = MixTransformer(f'b{i}')
     state_dict = OrderedDict()

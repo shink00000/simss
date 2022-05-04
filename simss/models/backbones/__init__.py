@@ -1,8 +1,10 @@
 from .resnet import ResNet
-from .mit import MiT
+from .mit import MixTransformer
+from .swin import SwinTransformer
 
 
 BACKBONES = {
     'ResNet': ResNet,
-    'MiT': MiT
+    'MixTransformer': MixTransformer,
+    'SwinTransformer': SwinTransformer
 }

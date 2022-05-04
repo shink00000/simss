@@ -8,8 +8,10 @@ dataset:
 
 model:
   type: SegFormer
-  scale: b2
-  pretrain: ./assets/mit_b2.pth
+  backbone:
+    type: MixTransformer
+    scale: b2
+    pretrain: ./assets/mit_b2.pth
 
 optimizer:
   type: AdamW

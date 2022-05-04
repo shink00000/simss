@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from .backbones import MixTransformer
+from .backbones import BACKBONES
 from .layers import Conv2dWS
 
 
@@ -60,9 +60,9 @@ class SegFormerHead(nn.Module):
 
 
 class SegFormer(nn.Module):
-    def __init__(self, scale: str, n_classes: int, pretrain: str):
+    def __init__(self, backbone: dict, n_classes: int):
         super().__init__()
-        self.encoder = MixTransformer(scale, pretrain)
+        self.encoder = BACKBONES[backbone.pop('type')](**backbone)
         self.decoder = SegFormerHead(
             in_channels=[self.encoder.C2, self.encoder.C3, self.encoder.C4, self.encoder.C5],
             n_classes=n_classes
