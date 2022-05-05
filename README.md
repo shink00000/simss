@@ -12,12 +12,14 @@ This repository will reproduce and implement well-known SS models.
 
 # Results
 ## [SegFormer](https://arxiv.org/abs/2105.15203)
+### SegFormer-B0
 * notes
   * I referred to many of them: [mmsegmentation](https://github.com/open-mmlab/mmsegmentation/blob/master/mmseg/models/backbones/mit.py)
   * mIoU was about 3% lower than the evaluation results reported above. I suspect the reason is that the input size was changed from (1024, 1024) -> (512, 1024) and that it was run on a single gpu training with batch_size = 4 (i.e. insufficient batch size).
 * [config](./configs/segformer_mit-b0_cityscapes_h512_w1024.yaml)
     * data: CityScapes
     * input_size: (512, 1024)
+    * backbone: MiT-b0
 * [tensorboard](https://tensorboard.dev/experiment/jZM1DMx3RaKGspfAeq7psA/)
 * evaluation result
   ```
