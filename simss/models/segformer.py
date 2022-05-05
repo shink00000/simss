@@ -3,14 +3,13 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from .backbones import BACKBONES
-from .layers import Conv2dWS
 
 
 class ConvModule(nn.Module):
     def __init__(self, in_channels: int, out_channels: int, kernel_size: int):
         super().__init__()
-        self.conv = Conv2dWS(in_channels, out_channels, kernel_size, bias=False)
-        self.norm = nn.GroupNorm(32, out_channels)
+        self.conv = nn.Conv2d(in_channels, out_channels, kernel_size, bias=False)
+        self.norm = nn.BatchNorm2d(out_channels)
         self.act = nn.ReLU(inplace=True)
 
     def forward(self, x):
