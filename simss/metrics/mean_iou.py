@@ -39,6 +39,6 @@ class MeanIoU(Metric):
 
         for i in range(self.n_classes):
             print(f'{self.class_names[i]:20}: {ious[i]:.04f}')
-        print(f'{"mean":20}: {ious.mean():.04f}')
+        print(f'{"*mean*":20}: {ious.mean():.04f}')
 
         return {'mIoU': ious.mean()}
