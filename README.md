@@ -1,28 +1,33 @@
 # SimSS
+
 This repository will reproduce and implement well-known SS models.
 
 # Policy
+
 1. Simple implementation with less code and fewer files
 1. Emphasis on processing efficiency
 1. Be aware of ease of understanding
 
 # Library Features
-* [train](./tools/train.py)
-* [test (evaluate)](./tools/test.py)
+
+- [train](./tools/train.py)
+- [test (evaluate)](./tools/test.py)
 
 # Results
+
 ## [SegFormer](https://arxiv.org/abs/2105.15203)
-### SegFormer-B0
-* [architecture](./docs/archs/segformer_mit-b0.txt)
-* notes
-  * I referred to many of them: [mmsegmentation](https://github.com/open-mmlab/mmsegmentation/blob/master/mmseg/models/backbones/mit.py)
-  * mIoU was about 3% lower than the evaluation results reported above. I suspect the reason is that the input size was changed from (1024, 1024) -> (512, 1024) and that it was run on a single gpu training with batch_size = 4 (i.e. insufficient batch size).
-* [config](./configs/segformer_mit-b0_cityscapes_h512_w1024.yaml)
-    * data: CityScapes
-    * input_size: (512, 1024)
-    * backbone: MiT-b0
-* [tensorboard](https://tensorboard.dev/experiment/jZM1DMx3RaKGspfAeq7psA/)
-* evaluation result
+
+### SegFormer-B0 [[arch](./docs/archs/segformer_mit-b0.txt)]
+
+- notes
+  - I referred to many of them: [mmsegmentation](https://github.com/open-mmlab/mmsegmentation/blob/master/mmseg/models/backbones/mit.py)
+  - mIoU was about 3% lower than the evaluation results reported above. I suspect the reason is that the input size was changed from (1024, 1024) -> (512, 1024) and that it was run on a single gpu training with batch_size = 4 (i.e. insufficient batch size).
+- [config](./configs/segformer_mit-b0_cityscapes_h512_w1024.yaml)
+  - data: CityScapes
+  - input_size: (512, 1024)
+  - backbone: MiT-b0
+- [tensorboard](https://tensorboard.dev/experiment/jZM1DMx3RaKGspfAeq7psA/)
+- evaluation result
   ```
   road                : 0.9761
   sidewalk            : 0.8139
@@ -46,14 +51,14 @@ This repository will reproduce and implement well-known SS models.
   *mean*              : 0.7356
   ```
 
-### SegFormer-B2
-* [architecture](./docs/archs/segformer_mit-b2.txt)
-* [config](./configs/segformer_mit-b2_cityscapes_h512_w1024.yaml)
-    * data: CityScapes
-    * input_size: (512, 1024)
-    * backbone: MiT-b2
-* [tensorboard](https://tensorboard.dev/experiment/GYcrBXvOT16GU1Pv10CbQQ/)
-* evaluation result
+### SegFormer-B2 [[arch](./docs/archs/segformer_mit-b2.txt)]
+
+- [config](./configs/segformer_mit-b2_cityscapes_h512_w1024.yaml)
+  - data: CityScapes
+  - input_size: (512, 1024)
+  - backbone: MiT-b2
+- [tensorboard](https://tensorboard.dev/experiment/GYcrBXvOT16GU1Pv10CbQQ/)
+- evaluation result
   ```
   road                : 0.9832
   sidewalk            : 0.8585
