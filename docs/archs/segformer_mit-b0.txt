@@ -1,0 +1,230 @@
+SegFormer(
+  (encoder): MixTransformer(
+    (layers): ModuleList(
+      (0): TransformerBlock(
+        (patch): OverlapPatchEmbeding(
+          (projection): Conv2d(3, 32, kernel_size=(7, 7), stride=(4, 4), padding=(3, 3))
+          (norm): LayerNorm((32,), eps=1e-06, elementwise_affine=True)
+        )
+        (layers): ModuleList(
+          (0): TransformerLayer(
+            (norm1): LayerNorm((32,), eps=1e-06, elementwise_affine=True)
+            (attn): EfficientSelfAttention(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=32, out_features=96, bias=True)
+                (out_proj): Linear(in_features=32, out_features=32, bias=True)
+              )
+              (reduction): Conv2d(32, 32, kernel_size=(8, 8), stride=(8, 8))
+              (norm): LayerNorm((32,), eps=1e-06, elementwise_affine=True)
+              (drop_path): DropPath(drop_prob=0.0)
+            )
+            (norm2): LayerNorm((32,), eps=1e-06, elementwise_affine=True)
+            (ffn): MixFFN(
+              (fc1): Linear(in_features=32, out_features=128, bias=True)
+              (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+              (act): GELU()
+              (fc2): Linear(in_features=128, out_features=32, bias=True)
+              (drop_path): DropPath(drop_prob=0.0)
+            )
+          )
+          (1): TransformerLayer(
+            (norm1): LayerNorm((32,), eps=1e-06, elementwise_affine=True)
+            (attn): EfficientSelfAttention(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=32, out_features=96, bias=True)
+                (out_proj): Linear(in_features=32, out_features=32, bias=True)
+              )
+              (reduction): Conv2d(32, 32, kernel_size=(8, 8), stride=(8, 8))
+              (norm): LayerNorm((32,), eps=1e-06, elementwise_affine=True)
+              (drop_path): DropPath(drop_prob=0.014285714365541935)
+            )
+            (norm2): LayerNorm((32,), eps=1e-06, elementwise_affine=True)
+            (ffn): MixFFN(
+              (fc1): Linear(in_features=32, out_features=128, bias=True)
+              (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+              (act): GELU()
+              (fc2): Linear(in_features=128, out_features=32, bias=True)
+              (drop_path): DropPath(drop_prob=0.014285714365541935)
+            )
+          )
+        )
+        (norm): LayerNorm((32,), eps=1e-06, elementwise_affine=True)
+      )
+      (1): TransformerBlock(
+        (patch): OverlapPatchEmbeding(
+          (projection): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (norm): LayerNorm((64,), eps=1e-06, elementwise_affine=True)
+        )
+        (layers): ModuleList(
+          (0): TransformerLayer(
+            (norm1): LayerNorm((64,), eps=1e-06, elementwise_affine=True)
+            (attn): EfficientSelfAttention(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=64, out_features=192, bias=True)
+                (out_proj): Linear(in_features=64, out_features=64, bias=True)
+              )
+              (reduction): Conv2d(64, 64, kernel_size=(4, 4), stride=(4, 4))
+              (norm): LayerNorm((64,), eps=1e-06, elementwise_affine=True)
+              (drop_path): DropPath(drop_prob=0.02857142873108387)
+            )
+            (norm2): LayerNorm((64,), eps=1e-06, elementwise_affine=True)
+            (ffn): MixFFN(
+              (fc1): Linear(in_features=64, out_features=256, bias=True)
+              (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256)
+              (act): GELU()
+              (fc2): Linear(in_features=256, out_features=64, bias=True)
+              (drop_path): DropPath(drop_prob=0.02857142873108387)
+            )
+          )
+          (1): TransformerLayer(
+            (norm1): LayerNorm((64,), eps=1e-06, elementwise_affine=True)
+            (attn): EfficientSelfAttention(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=64, out_features=192, bias=True)
+                (out_proj): Linear(in_features=64, out_features=64, bias=True)
+              )
+              (reduction): Conv2d(64, 64, kernel_size=(4, 4), stride=(4, 4))
+              (norm): LayerNorm((64,), eps=1e-06, elementwise_affine=True)
+              (drop_path): DropPath(drop_prob=0.04285714402794838)
+            )
+            (norm2): LayerNorm((64,), eps=1e-06, elementwise_affine=True)
+            (ffn): MixFFN(
+              (fc1): Linear(in_features=64, out_features=256, bias=True)
+              (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256)
+              (act): GELU()
+              (fc2): Linear(in_features=256, out_features=64, bias=True)
+              (drop_path): DropPath(drop_prob=0.04285714402794838)
+            )
+          )
+        )
+        (norm): LayerNorm((64,), eps=1e-06, elementwise_affine=True)
+      )
+      (2): TransformerBlock(
+        (patch): OverlapPatchEmbeding(
+          (projection): Conv2d(64, 160, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (norm): LayerNorm((160,), eps=1e-06, elementwise_affine=True)
+        )
+        (layers): ModuleList(
+          (0): TransformerLayer(
+            (norm1): LayerNorm((160,), eps=1e-06, elementwise_affine=True)
+            (attn): EfficientSelfAttention(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=160, out_features=480, bias=True)
+                (out_proj): Linear(in_features=160, out_features=160, bias=True)
+              )
+              (reduction): Conv2d(160, 160, kernel_size=(2, 2), stride=(2, 2))
+              (norm): LayerNorm((160,), eps=1e-06, elementwise_affine=True)
+              (drop_path): DropPath(drop_prob=0.05714285746216774)
+            )
+            (norm2): LayerNorm((160,), eps=1e-06, elementwise_affine=True)
+            (ffn): MixFFN(
+              (fc1): Linear(in_features=160, out_features=640, bias=True)
+              (conv): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=640)
+              (act): GELU()
+              (fc2): Linear(in_features=640, out_features=160, bias=True)
+              (drop_path): DropPath(drop_prob=0.05714285746216774)
+            )
+          )
+          (1): TransformerLayer(
+            (norm1): LayerNorm((160,), eps=1e-06, elementwise_affine=True)
+            (attn): EfficientSelfAttention(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=160, out_features=480, bias=True)
+                (out_proj): Linear(in_features=160, out_features=160, bias=True)
+              )
+              (reduction): Conv2d(160, 160, kernel_size=(2, 2), stride=(2, 2))
+              (norm): LayerNorm((160,), eps=1e-06, elementwise_affine=True)
+              (drop_path): DropPath(drop_prob=0.0714285746216774)
+            )
+            (norm2): LayerNorm((160,), eps=1e-06, elementwise_affine=True)
+            (ffn): MixFFN(
+              (fc1): Linear(in_features=160, out_features=640, bias=True)
+              (conv): Conv2d(640, 640, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=640)
+              (act): GELU()
+              (fc2): Linear(in_features=640, out_features=160, bias=True)
+              (drop_path): DropPath(drop_prob=0.0714285746216774)
+            )
+          )
+        )
+        (norm): LayerNorm((160,), eps=1e-06, elementwise_affine=True)
+      )
+      (3): TransformerBlock(
+        (patch): OverlapPatchEmbeding(
+          (projection): Conv2d(160, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (norm): LayerNorm((256,), eps=1e-06, elementwise_affine=True)
+        )
+        (layers): ModuleList(
+          (0): TransformerLayer(
+            (norm1): LayerNorm((256,), eps=1e-06, elementwise_affine=True)
+            (attn): EfficientSelfAttention(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=256, out_features=768, bias=True)
+                (out_proj): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (drop_path): DropPath(drop_prob=0.08571428805589676)
+            )
+            (norm2): LayerNorm((256,), eps=1e-06, elementwise_affine=True)
+            (ffn): MixFFN(
+              (fc1): Linear(in_features=256, out_features=1024, bias=True)
+              (conv): Conv2d(1024, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1024)
+              (act): GELU()
+              (fc2): Linear(in_features=1024, out_features=256, bias=True)
+              (drop_path): DropPath(drop_prob=0.08571428805589676)
+            )
+          )
+          (1): TransformerLayer(
+            (norm1): LayerNorm((256,), eps=1e-06, elementwise_affine=True)
+            (attn): EfficientSelfAttention(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=256, out_features=768, bias=True)
+                (out_proj): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (drop_path): DropPath(drop_prob=0.10000000149011612)
+            )
+            (norm2): LayerNorm((256,), eps=1e-06, elementwise_affine=True)
+            (ffn): MixFFN(
+              (fc1): Linear(in_features=256, out_features=1024, bias=True)
+              (conv): Conv2d(1024, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1024)
+              (act): GELU()
+              (fc2): Linear(in_features=1024, out_features=256, bias=True)
+              (drop_path): DropPath(drop_prob=0.10000000149011612)
+            )
+          )
+        )
+        (norm): LayerNorm((256,), eps=1e-06, elementwise_affine=True)
+      )
+    )
+  )
+  (decoder): SegFormerHead(
+    (mlp_layers): ModuleList(
+      (0): ConvModule(
+        (conv): Conv2d(32, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (norm): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): ReLU(inplace=True)
+      )
+      (1): ConvModule(
+        (conv): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (norm): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): ReLU(inplace=True)
+      )
+      (2): ConvModule(
+        (conv): Conv2d(160, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (norm): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): ReLU(inplace=True)
+      )
+      (3): ConvModule(
+        (conv): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (norm): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): ReLU(inplace=True)
+      )
+    )
+    (mlp): ConvModule(
+      (conv): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (norm): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (act): ReLU(inplace=True)
+    )
+    (drop): Dropout2d(p=0.1, inplace=False)
+    (seg_top): Conv2d(256, 19, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (seg_loss): CrossEntropyLoss()
+)
