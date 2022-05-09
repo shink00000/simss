@@ -4,7 +4,7 @@ dataset:
   size: [512, 1024]
   loader:
     batch_size: 16
-    num_workers: 2
+    num_workers: 4
 
 model:
   type: BiSeNetV1
@@ -25,4 +25,4 @@ scheduler:
   warmup_iterations: 1000
 
 runtime:
-  epochs: 217
+  epochs: 216
