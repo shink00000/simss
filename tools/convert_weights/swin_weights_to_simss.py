@@ -1,6 +1,7 @@
 import torch
 from simss.models.backbones import SwinTransformer
 from collections import OrderedDict
+from torchvision.transforms.functional import resize
 
 with torch.no_grad():
     for scale in ['tiny', 'small', 'base']:
@@ -40,9 +41,8 @@ with torch.no_grad():
                             raise NotImplementedError
                     elif sub == 'rel_pos_bias_table':
                         target_key = f'layers.{block_no}.blocks.{layer_no}.attn.relative_position_bias_table'
-                        dst_table = p.view(15, 15, -1)
-                        dst_table[2:, :-2] = targets[target_key].view(13, 13, -1)
-                        state_dict[name] = dst_table.view(15**2, -1)
+                        dst_table = resize(targets[target_key].view(13, 13, -1).permute(2, 0, 1), (15, 15)).view(-1)
+                        state_dict[name] = dst_table
                     else:
                         raise NotImplementedError
                 elif 'ffn' == module:

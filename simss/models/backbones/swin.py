@@ -53,7 +53,7 @@ class WindowMSA(nn.Module):
         self.window_size = window_size
 
         self.rel_pos_bias_table = nn.Parameter(
-            torch.zeros((2*window_size-1) * (2*window_size-1), n_heads)
+            torch.zeros(n_heads * (2*window_size-1) * (2*window_size-1))
         )
         self.register_buffer('rel_pos_index', self._get_rel_pos_index())
 
@@ -71,10 +71,9 @@ class WindowMSA(nn.Module):
             torch.Tensor: (N, L, C)
         """
 
-        bias = self.rel_pos_bias_table[
-            self.rel_pos_index.view(-1)
-        ].view(self.window_size**2, self.window_size**2, -1)  # (window_size**2, window_size**2, nH)
-        bias = bias.permute(2, 0, 1).contiguous().unsqueeze(0)  # (1, nH, window_size**2, window_size**2)
+        bias = self.rel_pos_bias_table.view(-1, (2*self.window_size-1)**2)[
+            :, self.rel_pos_index
+        ].unsqueeze(0)  # (1, nH, window_size**2, window_size**2)
 
         x = self.window_partition(x, h, w, self.window_size)  # (N*nW, window_size**2, C)
         x = self.attn(x, x, x, b=bias)
