@@ -111,14 +111,14 @@ class LargeWindowAttention(nn.Module):
 class LawinHead(nn.Module):
     def __init__(self, in_channels: list, n_classes: int, drop_rate: float = 0.1):
         super().__init__()
-        self.mlp_layers = nn.ModuleList([ConvModule(in_channels[i], 48 if i == 0 else 128, 1) for i in range(4)])
-        self.mlp1 = ConvModule(3*128, 128, 1)
-        self.lawin_attns = nn.ModuleList([LargeWindowAttention(r, 128, r**2) for r in [2, 4, 8]])
+        self.mlp_layers = nn.ModuleList([ConvModule(in_channels[i], 48 if i == 0 else 256, 1) for i in range(4)])
+        self.mlp1 = ConvModule(3*256, 256, 1)
+        self.lawin_attns = nn.ModuleList([LargeWindowAttention(r, 256, r**2) for r in [2, 4, 8]])
         self.image_pooling = nn.Sequential(
             nn.AdaptiveAvgPool2d(1),
-            ConvModule(128, 128, 1)
+            ConvModule(256, 256, 1)
         )
-        self.mlp2 = ConvModule(5*128, 256, 1)
+        self.mlp2 = ConvModule(5*256, 256, 1)
         self.mlp3 = ConvModule(256+48, 256, 1)
         self.drop = nn.Dropout2d(drop_rate)
         self.seg_top = nn.Conv2d(256, n_classes, 1)
