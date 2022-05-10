@@ -1,0 +1,29 @@
+dataset:
+  type: CityScapesDataset
+  data_dir: ./data/cityscapes_ss/
+  size: [512, 1024]
+  loader:
+    batch_size: 4
+    num_workers: 4
+
+model:
+  type: OCRNet
+  backbone:
+    type: HRNetV2
+    width: 48
+    pretrain: ./assets/hrnetv2_w48.pth
+
+optimizer:
+  type: SGD
+  lr: 0.01
+  momentum: 0.9
+  weight_decay: 0.0005
+
+scheduler:
+  type: PolynomialLR
+  max_iterations: 160000
+  power: 0.9
+  min_lr: 0.0001
+
+runtime:
+  epochs: 216

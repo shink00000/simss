@@ -2,7 +2,7 @@ from torch.optim.lr_scheduler import _LRScheduler
 
 
 class PolynomialLR(_LRScheduler):
-    def __init__(self, optimizer, max_iterations, power, min_lr=1e-4, warmup_iterations=1000,
+    def __init__(self, optimizer, max_iterations, power, min_lr=1e-4, warmup_iterations=0,
                  warmup_ratio=0.1, last_epoch=-1, verbose=False):
         self.max_iterations = max_iterations
         self.power = power

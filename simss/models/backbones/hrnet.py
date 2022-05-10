@@ -78,7 +78,7 @@ class HRModule(nn.Module):
         return outs
 
 
-class HRNet(nn.Module):
+class HRNetV2(nn.Module):
     def __init__(self, width: int = 48, pretrain: str = None):
         assert width in (18, 32, 48)
 
@@ -142,7 +142,7 @@ class HRNet(nn.Module):
 
 if __name__ == '__main__':
     x = torch.rand(2, 3, 32, 32)
-    m = HRNet(width=48)
+    m = HRNetV2(width=48)
     outs = m(x)
     for out in outs:
         print(out.shape)

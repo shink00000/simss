@@ -1,12 +1,12 @@
 import torch
-from simss.models.backbones import HRNet
+from simss.models.backbones import HRNetV2
 from collections import OrderedDict
 
 for width in [18, 32, 48]:
 
     targets = torch.load(f'./assets/original/hrnetv2_w{width}_imagenet_pretrained.pth', map_location='cpu')
 
-    m = HRNet(width=width)
+    m = HRNetV2(width=width)
     state_dict = OrderedDict()
     for name, p in m.named_parameters():
         if name.startswith('conv'):
