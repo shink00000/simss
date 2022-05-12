@@ -1,0 +1,27 @@
+dataset:
+  type: CityScapesDataset
+  data_dir: ./data/cityscapes_ss/
+  size: [512, 1024]
+  loader:
+    batch_size: 4
+    num_workers: 4
+
+model:
+  type: DeepLabV3P
+  backbone:
+    type: ResNet
+    depth: 50
+
+optimizer:
+  type: SGD
+  lr: 0.01
+  momentum: 0.9
+  weight_decay: 0.0005
+
+scheduler:
+  type: PolynomialLR
+  max_iterations: 40000
+  power: 0.9
+
+runtime:
+  epochs: 216
