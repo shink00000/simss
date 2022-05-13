@@ -20,7 +20,7 @@ optimizer:
 
 scheduler:
   type: PolynomialLR
-  max_iterations: 40000
+  max_iterations: 160000
   power: 0.9
 
 runtime:

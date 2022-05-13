@@ -8,21 +8,16 @@ from . import transforms as T
 
 
 class CityScapesDataset(Dataset):
+    CLASS_NAMES = ['road', 'sidewalk', 'building', 'wall', 'fence', 'pole', 'trafficlight', 'trafficsign',
+                   'vegetation', 'terrain', 'sky', 'person', 'rider', 'car', 'truck', 'bus',
+                   'train', 'motorcycle', 'bicycle']
+    N_CLASSES = 19
+
     def __init__(self, data_dir: str, phase: str, size: list):
         super().__init__()
         # self.phase = phase
         self.data_list = self._get_data_list(data_dir, phase)
         self.transforms = self._get_transforms(phase, size)
-
-    @property
-    def class_names(self):
-        return ['road', 'sidewalk', 'building', 'wall', 'fence', 'pole', 'trafficlight', 'trafficsign',
-                'vegetation', 'terrain', 'sky', 'person', 'rider', 'car', 'truck', 'bus',
-                'train', 'motorcycle', 'bicycle']
-
-    @property
-    def n_classes(self):
-        return 19
 
     def __len__(self):
         return len(self.data_list)

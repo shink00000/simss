@@ -28,8 +28,8 @@ class Config:
         if phase == 'test':
             loader_cfg.update({'batch_size': 1})
         dataset = DATASETS[cfg.pop('type')](phase=phase, **cfg)
-        self.n_classes = dataset.n_classes
-        self.class_names = dataset.class_names
+        self.n_classes = dataset.N_CLASSES
+        self.class_names = dataset.CLASS_NAMES
         dataloader = DataLoader(
             dataset,
             shuffle=phase == 'train',
