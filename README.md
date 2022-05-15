@@ -81,3 +81,42 @@ This repository will reproduce and implement well-known SS models.
   bicycle             : 0.7891
   *mean*              : 0.7917
   ```
+
+## [Lawin](https://arxiv.org/abs/2201.01615)
+
+### Lawin-MiTB2 [[arch](./docs/archs/segformer_mit-b0.txt)]
+
+- notes
+  - mIoU was about 2.5% lower than the evaluation results reported above (81.7%). I suspect the reason is that the input size was changed from (768, 768) -> (512, 1024) and that it was run on a single gpu training with batch_size = 4 (i.e. insufficient batch size).
+  - The following points differ from the official implementation:
+    - Conv2d channels in head (512 -> 128)
+    - The use of multihead attention instead of nonlocal.
+    - The official implementation divides the sum of maxpool and avgpool results by 2, but here only avgpool is used.
+- [config](./configs/lawin_mit-bw_cityscapes_h512_w1024.yaml)
+  - data: CityScapes
+  - input_size: (512, 1024)
+  - backbone: MiT-b2
+- [tensorboard](https://tensorboard.dev/experiment/miPjAck7RK2WaEE5rFRIow/)
+- evaluation result
+  ```
+  road                : 0.9813
+  sidewalk            : 0.8483
+  building            : 0.9267
+  wall                : 0.5269
+  fence               : 0.5976
+  pole                : 0.6666
+  trafficlight        : 0.7232
+  trafficsign         : 0.8089
+  vegetation          : 0.9292
+  terrain             : 0.6349
+  sky                 : 0.9525
+  person              : 0.8321
+  rider               : 0.6231
+  car                 : 0.9545
+  truck               : 0.8274
+  bus                 : 0.8974
+  train               : 0.8116
+  motorcycle          : 0.7065
+  bicycle             : 0.7908
+  *mean*              : 0.7916
+  ```

@@ -10,8 +10,8 @@ model:
   type: OCRNet
   backbone:
     type: HRNetV2
-    width: 48
-    pretrain: ./assets/hrnetv2_w48.pth
+    width: 32
+    pretrain: ./assets/hrnetv2_w32.pth
 
 optimizer:
   type: SGD
