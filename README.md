@@ -84,7 +84,7 @@ This repository will reproduce and implement well-known SS models.
 
 ## [Lawin](https://arxiv.org/abs/2201.01615)
 
-### Lawin-MiTB2 [[arch](./docs/archs/segformer_mit-b0.txt)]
+### Lawin-MiTB2 [[arch](./docs/archs/lawin_mit-b2.txt)]
 
 - notes
   - mIoU was about 2.5% lower than the evaluation results reported above (81.7%). I suspect the reason is that the input size was changed from (768, 768) -> (512, 1024) and that it was run on a single gpu training with batch_size = 4 (i.e. insufficient batch size).
