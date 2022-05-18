@@ -1,0 +1,274 @@
+SegFormer(
+  (encoder): SwinTransformer(
+    (layers): ModuleList(
+      (0): TransformerBlock(
+        (patch): PatchEmbeding(
+          (projection): Conv2d(3, 96, kernel_size=(4, 4), stride=(4, 4))
+          (norm): LayerNorm((96,), eps=1e-05, elementwise_affine=True)
+        )
+        (layers): ModuleList(
+          (0): TransformerLayer(
+            (norm1): LayerNorm((96,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowMSA(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=96, out_features=288, bias=True)
+                (out_proj): Linear(in_features=96, out_features=96, bias=True)
+              )
+              (drop_path): DropPath(drop_prob=0.0)
+            )
+            (norm2): LayerNorm((96,), eps=1e-05, elementwise_affine=True)
+            (ffn): MLP(
+              (fc1): Linear(in_features=96, out_features=384, bias=True)
+              (act): GELU()
+              (fc2): Linear(in_features=384, out_features=96, bias=True)
+              (drop_path): DropPath(drop_prob=0.0)
+            )
+          )
+          (1): TransformerLayer(
+            (norm1): LayerNorm((96,), eps=1e-05, elementwise_affine=True)
+            (attn): ShiftedWindowMSA(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=96, out_features=288, bias=True)
+                (out_proj): Linear(in_features=96, out_features=96, bias=True)
+              )
+              (drop_path): DropPath(drop_prob=0.027272729203104973)
+            )
+            (norm2): LayerNorm((96,), eps=1e-05, elementwise_affine=True)
+            (ffn): MLP(
+              (fc1): Linear(in_features=96, out_features=384, bias=True)
+              (act): GELU()
+              (fc2): Linear(in_features=384, out_features=96, bias=True)
+              (drop_path): DropPath(drop_prob=0.027272729203104973)
+            )
+          )
+        )
+      )
+      (1): TransformerBlock(
+        (patch): PatchMerging(
+          (norm): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+          (projection): Linear(in_features=384, out_features=192, bias=False)
+        )
+        (layers): ModuleList(
+          (0): TransformerLayer(
+            (norm1): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowMSA(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=192, out_features=576, bias=True)
+                (out_proj): Linear(in_features=192, out_features=192, bias=True)
+              )
+              (drop_path): DropPath(drop_prob=0.054545458406209946)
+            )
+            (norm2): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+            (ffn): MLP(
+              (fc1): Linear(in_features=192, out_features=768, bias=True)
+              (act): GELU()
+              (fc2): Linear(in_features=768, out_features=192, bias=True)
+              (drop_path): DropPath(drop_prob=0.054545458406209946)
+            )
+          )
+          (1): TransformerLayer(
+            (norm1): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+            (attn): ShiftedWindowMSA(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=192, out_features=576, bias=True)
+                (out_proj): Linear(in_features=192, out_features=192, bias=True)
+              )
+              (drop_path): DropPath(drop_prob=0.08181818574666977)
+            )
+            (norm2): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+            (ffn): MLP(
+              (fc1): Linear(in_features=192, out_features=768, bias=True)
+              (act): GELU()
+              (fc2): Linear(in_features=768, out_features=192, bias=True)
+              (drop_path): DropPath(drop_prob=0.08181818574666977)
+            )
+          )
+        )
+      )
+      (2): TransformerBlock(
+        (patch): PatchMerging(
+          (norm): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (projection): Linear(in_features=768, out_features=384, bias=False)
+        )
+        (layers): ModuleList(
+          (0): TransformerLayer(
+            (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowMSA(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=384, out_features=1152, bias=True)
+                (out_proj): Linear(in_features=384, out_features=384, bias=True)
+              )
+              (drop_path): DropPath(drop_prob=0.10909091681241989)
+            )
+            (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+            (ffn): MLP(
+              (fc1): Linear(in_features=384, out_features=1536, bias=True)
+              (act): GELU()
+              (fc2): Linear(in_features=1536, out_features=384, bias=True)
+              (drop_path): DropPath(drop_prob=0.10909091681241989)
+            )
+          )
+          (1): TransformerLayer(
+            (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+            (attn): ShiftedWindowMSA(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=384, out_features=1152, bias=True)
+                (out_proj): Linear(in_features=384, out_features=384, bias=True)
+              )
+              (drop_path): DropPath(drop_prob=0.13636364042758942)
+            )
+            (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+            (ffn): MLP(
+              (fc1): Linear(in_features=384, out_features=1536, bias=True)
+              (act): GELU()
+              (fc2): Linear(in_features=1536, out_features=384, bias=True)
+              (drop_path): DropPath(drop_prob=0.13636364042758942)
+            )
+          )
+          (2): TransformerLayer(
+            (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowMSA(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=384, out_features=1152, bias=True)
+                (out_proj): Linear(in_features=384, out_features=384, bias=True)
+              )
+              (drop_path): DropPath(drop_prob=0.16363637149333954)
+            )
+            (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+            (ffn): MLP(
+              (fc1): Linear(in_features=384, out_features=1536, bias=True)
+              (act): GELU()
+              (fc2): Linear(in_features=1536, out_features=384, bias=True)
+              (drop_path): DropPath(drop_prob=0.16363637149333954)
+            )
+          )
+          (3): TransformerLayer(
+            (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+            (attn): ShiftedWindowMSA(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=384, out_features=1152, bias=True)
+                (out_proj): Linear(in_features=384, out_features=384, bias=True)
+              )
+              (drop_path): DropPath(drop_prob=0.19090908765792847)
+            )
+            (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+            (ffn): MLP(
+              (fc1): Linear(in_features=384, out_features=1536, bias=True)
+              (act): GELU()
+              (fc2): Linear(in_features=1536, out_features=384, bias=True)
+              (drop_path): DropPath(drop_prob=0.19090908765792847)
+            )
+          )
+          (4): TransformerLayer(
+            (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowMSA(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=384, out_features=1152, bias=True)
+                (out_proj): Linear(in_features=384, out_features=384, bias=True)
+              )
+              (drop_path): DropPath(drop_prob=0.2181818187236786)
+            )
+            (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+            (ffn): MLP(
+              (fc1): Linear(in_features=384, out_features=1536, bias=True)
+              (act): GELU()
+              (fc2): Linear(in_features=1536, out_features=384, bias=True)
+              (drop_path): DropPath(drop_prob=0.2181818187236786)
+            )
+          )
+          (5): TransformerLayer(
+            (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+            (attn): ShiftedWindowMSA(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=384, out_features=1152, bias=True)
+                (out_proj): Linear(in_features=384, out_features=384, bias=True)
+              )
+              (drop_path): DropPath(drop_prob=0.2454545497894287)
+            )
+            (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+            (ffn): MLP(
+              (fc1): Linear(in_features=384, out_features=1536, bias=True)
+              (act): GELU()
+              (fc2): Linear(in_features=1536, out_features=384, bias=True)
+              (drop_path): DropPath(drop_prob=0.2454545497894287)
+            )
+          )
+        )
+      )
+      (3): TransformerBlock(
+        (patch): PatchMerging(
+          (norm): LayerNorm((1536,), eps=1e-05, elementwise_affine=True)
+          (projection): Linear(in_features=1536, out_features=768, bias=False)
+        )
+        (layers): ModuleList(
+          (0): TransformerLayer(
+            (norm1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowMSA(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=768, out_features=2304, bias=True)
+                (out_proj): Linear(in_features=768, out_features=768, bias=True)
+              )
+              (drop_path): DropPath(drop_prob=0.27272728085517883)
+            )
+            (norm2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+            (ffn): MLP(
+              (fc1): Linear(in_features=768, out_features=3072, bias=True)
+              (act): GELU()
+              (fc2): Linear(in_features=3072, out_features=768, bias=True)
+              (drop_path): DropPath(drop_prob=0.27272728085517883)
+            )
+          )
+          (1): TransformerLayer(
+            (norm1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+            (attn): ShiftedWindowMSA(
+              (attn): MultiheadAttention(
+                (in_proj): Linear(in_features=768, out_features=2304, bias=True)
+                (out_proj): Linear(in_features=768, out_features=768, bias=True)
+              )
+              (drop_path): DropPath(drop_prob=0.30000001192092896)
+            )
+            (norm2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+            (ffn): MLP(
+              (fc1): Linear(in_features=768, out_features=3072, bias=True)
+              (act): GELU()
+              (fc2): Linear(in_features=3072, out_features=768, bias=True)
+              (drop_path): DropPath(drop_prob=0.30000001192092896)
+            )
+          )
+        )
+      )
+    )
+  )
+  (decoder): SegFormerHead(
+    (mlp_layers): ModuleList(
+      (0): ConvModule(
+        (conv): Conv2d(96, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (norm): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): ReLU(inplace=True)
+      )
+      (1): ConvModule(
+        (conv): Conv2d(192, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (norm): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): ReLU(inplace=True)
+      )
+      (2): ConvModule(
+        (conv): Conv2d(384, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (norm): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): ReLU(inplace=True)
+      )
+      (3): ConvModule(
+        (conv): Conv2d(768, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (norm): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): ReLU(inplace=True)
+      )
+    )
+    (mlp): ConvModule(
+      (conv): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (norm): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (act): ReLU(inplace=True)
+    )
+    (drop): Dropout2d(p=0.1, inplace=False)
+    (seg_top): Conv2d(256, 19, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (seg_loss): CrossEntropyLoss()
+)

@@ -82,6 +82,37 @@ This repository will reproduce and implement well-known SS models.
   *mean*              : 0.7917
   ```
 
+### SegFormer-SwinT [[arch](./docs/archs/segformer_swin-t.txt)]
+
+- [config](./configs/segformer_swin-t_cityscapes_h512_w1024.yaml)
+  - data: CityScapes
+  - input_size: (512, 1024)
+  - backbone: Swin-Tiny
+- [tensorboard](https://tensorboard.dev/experiment/wTM78yraRx6jCrjJkDAqYg/)
+- evaluation result
+  ```
+  road                : 0.9808
+  sidewalk            : 0.8490
+  building            : 0.9254
+  wall                : 0.5843
+  fence               : 0.6129
+  pole                : 0.6300
+  trafficlight        : 0.6986
+  trafficsign         : 0.7973
+  vegetation          : 0.9280
+  terrain             : 0.6577
+  sky                 : 0.9517
+  person              : 0.8184
+  rider               : 0.6001
+  car                 : 0.9465
+  truck               : 0.7001
+  bus                 : 0.7930
+  train               : 0.4739
+  motorcycle          : 0.6612
+  bicycle             : 0.7759
+  *mean*              : 0.7571
+  ```
+
 ## [Lawin](https://arxiv.org/abs/2201.01615)
 
 ### Lawin-MiTB2 [[arch](./docs/archs/lawin_mit-b2.txt)]
