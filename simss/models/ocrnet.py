@@ -177,7 +177,7 @@ class OCRNet(nn.Module):
         out = self._resize(out, target.size()[1:])
         out = F.softmax(out, dim=1)
 
-        return output
+        return out
 
     @staticmethod
     def _resize(x, size):
