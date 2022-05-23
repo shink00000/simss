@@ -68,7 +68,7 @@ class Resize(nn.Module):
         return (image, label)
 
 
-class HorizontalFlip(nn.Module):
+class RandomHorizontalFlip(nn.Module):
     def __init__(self, p: float = 0.5):
         super().__init__()
         self.p = p
@@ -169,7 +169,7 @@ class Normalize(nn.Module):
         return (image, label)
 
 
-class Rotate(nn.Module):
+class RandomRotate(nn.Module):
     def __init__(self, degrees, fill=0, label_fill=255):
         super().__init__()
         self.degrees = degrees

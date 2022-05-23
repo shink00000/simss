@@ -60,10 +60,10 @@ class CityScapesDataset(Dataset):
                 # T.CopyPaste(ignore_index=255, p=0.5),
                 T.Resize(size=[1024, 2048], ratio_range=[0.5, 2.0]),
                 T.RandomCrop(crop_size=size, ignore_index=255),
-                T.HorizontalFlip(p=0.5),
+                T.RandomHorizontalFlip(p=0.5),
                 T.PhotoMetricDistortion(brightness=0.125, contrast=0.5, saturation=0.5, hue=0.1),
                 T.Normalize(mean=mean, std=std),
-                # T.Rotate(degrees=10)
+                # T.RandomRotate(degrees=10)
             )
         elif phase == 'val':
             transforms = nn.Sequential(

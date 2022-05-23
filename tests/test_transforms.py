@@ -59,7 +59,7 @@ def test_resize():
 
 def test_horizontal_flip():
     data = load()
-    t = T.HorizontalFlip()
+    t = T.RandomHorizontalFlip()
     image, label = t(data)
     save(image, label, 'horizontal_flip')
 
@@ -81,6 +81,6 @@ def test_normalize():
 
 def test_rotate():
     data = load()
-    t = T.Rotate(degrees=20)
+    t = T.RandomRotate(degrees=20)
     image, label = t(data)
     save(image, label, 'rotate')
