@@ -151,3 +151,69 @@ This repository will reproduce and implement well-known SS models.
   bicycle             : 0.7908
   *mean*              : 0.7916
   ```
+
+## [DeepLabV3+](https://arxiv.org/abs/1802.02611v3)
+
+### DeepLabV3+-ResNet50 [[arch](./docs/archs/deeplabv3p_r50.txt)]
+
+- [config](./configs/deeplabv3p_r50_cityscapes_h512_w1024.yaml)
+  - data: CityScapes
+  - input_size: (512, 1024)
+  - backbone: ResNet50
+- [tensorboard](https://tensorboard.dev/experiment/eGi7tk0wTrSpfEwTQiyGSw/)
+- evaluation result
+  ```
+  road                : 0.9806
+  sidewalk            : 0.8456
+  building            : 0.9128
+  wall                : 0.4353
+  fence               : 0.5243
+  pole                : 0.6211
+  trafficlight        : 0.6872
+  trafficsign         : 0.7712
+  vegetation          : 0.9220
+  terrain             : 0.6428
+  sky                 : 0.9474
+  person              : 0.7908
+  rider               : 0.5030
+  car                 : 0.9283
+  truck               : 0.5157
+  bus                 : 0.5181
+  train               : 0.7140
+  motorcycle          : 0.5558
+  bicycle             : 0.7585
+  *mean*              : 0.7144
+  ```
+
+## [OCRNet](https://arxiv.org/abs/1909.11065v6)
+
+### OCRNet-HRNetV2W32 [[arch](./docs/archs/ocrnet_hr32.txt)]
+
+- [config](./configs/ocrnet_hr32_cityscapes_h512_w1024.yaml)
+  - data: CityScapes
+  - input_size: (512, 1024)
+  - backbone: HRNetV2W32
+- [tensorboard](https://tensorboard.dev/experiment/VrJ4FgpZQiyETlTDe6PqgQ/)
+- evaluation result
+  ```
+  road                : 0.9840
+  sidewalk            : 0.8647
+  building            : 0.9331
+  wall                : 0.6203
+  fence               : 0.6602
+  pole                : 0.6838
+  trafficlight        : 0.7209
+  trafficsign         : 0.8046
+  vegetation          : 0.9297
+  terrain             : 0.6559
+  sky                 : 0.9522
+  person              : 0.8297
+  rider               : 0.6178
+  car                 : 0.9565
+  truck               : 0.8622
+  bus                 : 0.9129
+  train               : 0.8045
+  motorcycle          : 0.6980
+  bicycle             : 0.7832
+  *mean*              : 0.8039
+  ```
