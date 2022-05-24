@@ -9,16 +9,16 @@ from simss.utils.config import Config
 def train_loop(epoch_no, device, train_dl, model, optimizer, scheduler, writer) -> float:
     train_loss = train_count = 0
     model.train()
-    for image, label in tqdm(train_dl, desc=f'[{epoch_no}] train'):
-        image, label = image.to(device), label.to(device)
-        output = model(image)
-        loss = model.loss(output, label)
+    for images, labels in tqdm(train_dl, desc=f'[{epoch_no}] train'):
+        images, labels = images.to(device), labels.to(device)
+        outputs = model(images)
+        loss = model.loss(outputs, labels)
         loss.backward()
         optimizer.step()
         optimizer.zero_grad()
         scheduler.step()
-        train_loss += loss * image.size(0)
-        train_count += image.size(0)
+        train_loss += loss * images.size(0)
+        train_count += images.size(0)
     train_loss = (train_loss / train_count).item()
 
     writer.add_scalar('Loss/train', train_loss, epoch_no)
@@ -32,14 +32,14 @@ def val_loop(epoch_no, device, val_dl, model, metric, writer) -> float:
     val_loss = val_count = 0
     model.eval()
     with torch.no_grad():
-        for image, label in tqdm(val_dl, desc=f'[{epoch_no}] val'):
-            image, label = image.to(device), label.to(device)
-            output = model(image)
-            loss = model.loss(output, label)
-            pred = model.predict(output, label)
-            metric.update(label, pred)
-            val_loss += loss * image.size(0)
-            val_count += image.size(0)
+        for images, labels in tqdm(val_dl, desc=f'[{epoch_no}] val'):
+            images, labels = images.to(device), labels.to(device)
+            outputs = model(images)
+            loss = model.loss(outputs, labels)
+            preds = model.predict(outputs, labels)
+            metric.update(labels, preds)
+            val_loss += loss * images.size(0)
+            val_count += images.size(0)
         val_loss = (val_loss / val_count).item()
         val_result = metric.compute()
         metric.reset()

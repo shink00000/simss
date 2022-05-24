@@ -19,11 +19,11 @@ def main(args):
 
     model.eval()
     with torch.no_grad():
-        for image, label in tqdm(test_dl):
-            image, label = image.to(device), label.to(device)
-            output = model(image)
-            pred = model.predict(output, label)
-            metric.update(label, pred)
+        for images, labels in tqdm(test_dl):
+            images, labels = images.to(device), labels.to(device)
+            outputs = model(images)
+            preds = model.predict(outputs, labels)
+            metric.update(labels, preds)
     metric.compute()
 
 
