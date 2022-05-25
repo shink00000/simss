@@ -1,6 +1,6 @@
+from collections import OrderedDict
 import torch
 from simss.models.backbones import MixTransformer
-from collections import OrderedDict
 
 
 for i in range(6):

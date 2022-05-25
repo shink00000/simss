@@ -92,7 +92,7 @@ class UNet(nn.Module):
 
         return out
 
-    def parameters(self, cfg):
+    def get_param_groups(self, cfg):
         param_groups = [
             {'params': [], 'weight_decay': 0.0},
             {'params': []}

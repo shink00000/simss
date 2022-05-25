@@ -1,9 +1,10 @@
+import os
+import os.path as osp
+
 import torch
 import torch.nn as nn
 from torch.optim import SGD
 import matplotlib.pyplot as plt
-import os
-import os.path as osp
 
 from simss.schedulers.polynomial_lr import PolynomialLR
 

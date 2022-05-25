@@ -1,54 +1,10 @@
-import torch
 import os.path as osp
-from tqdm import tqdm
+
+import torch
 from torch.utils.tensorboard import SummaryWriter
+from tqdm import tqdm
 
 from simss.utils.config import Config
-
-
-def train_loop(epoch_no, device, train_dl, model, optimizer, scheduler, writer) -> float:
-    train_loss = train_count = 0
-    model.train()
-    for images, labels in tqdm(train_dl, desc=f'[{epoch_no}] train'):
-        images, labels = images.to(device), labels.to(device)
-        outputs = model(images)
-        loss = model.loss(outputs, labels)
-        loss.backward()
-        optimizer.step()
-        optimizer.zero_grad()
-        scheduler.step()
-        train_loss += loss * images.size(0)
-        train_count += images.size(0)
-    train_loss = (train_loss / train_count).item()
-
-    writer.add_scalar('Loss/train', train_loss, epoch_no)
-    for i, last_lr in enumerate(scheduler.get_last_lr()):
-        writer.add_scalar(f'LearningRate/lr_{i}', last_lr, epoch_no)
-
-    return train_loss
-
-
-def val_loop(epoch_no, device, val_dl, model, metric, writer) -> float:
-    val_loss = val_count = 0
-    model.eval()
-    with torch.no_grad():
-        for images, labels in tqdm(val_dl, desc=f'[{epoch_no}] val'):
-            images, labels = images.to(device), labels.to(device)
-            outputs = model(images)
-            loss = model.loss(outputs, labels)
-            preds = model.predict(outputs, labels)
-            metric.update(labels, preds)
-            val_loss += loss * images.size(0)
-            val_count += images.size(0)
-        val_loss = (val_loss / val_count).item()
-        val_result = metric.compute()
-        metric.reset()
-
-    writer.add_scalar('Loss/val', val_loss, epoch_no)
-    for metric_name, val in val_result.items():
-        writer.add_scalar(f'Metric/{metric_name}', val, epoch_no)
-
-    return val_loss
 
 
 def main(args):
@@ -70,8 +26,41 @@ def main(args):
     writer = SummaryWriter(args.out_dir)
 
     for e in range(cfg.start_epoch, cfg.epochs+1):
-        train_loss = train_loop(e, device, train_dl, model, optimizer, scheduler, writer)
-        val_loss = val_loop(e, device, val_dl, model, metric, writer)
+        train_loss = train_count = val_loss = val_count = 0
+
+        model.train()
+        for images, labels in tqdm(train_dl, desc=f'[{e}] train'):
+            images, labels = images.to(device), labels.to(device)
+            outputs = model(images)
+            loss = model.loss(outputs, labels)
+            loss.backward()
+            optimizer.step()
+            optimizer.zero_grad()
+            scheduler.step()
+            train_loss += loss * images.size(0)
+            train_count += images.size(0)
+        train_loss = (train_loss / train_count).item()
+
+        model.eval()
+        with torch.no_grad():
+            for images, labels in tqdm(val_dl, desc=f'[{e}] val'):
+                images, labels = images.to(device), labels.to(device)
+                outputs = model(images)
+                loss = model.loss(outputs, labels)
+                preds = model.predict(outputs, labels)
+                metric.update(labels, preds)
+                val_loss += loss * images.size(0)
+                val_count += images.size(0)
+            val_loss = (val_loss / val_count).item()
+            val_result = metric.compute()
+            metric.reset()
+
+        writer.add_scalar('Loss/train', train_loss, e)
+        writer.add_scalar('Loss/val', val_loss, e)
+        for i, last_lr in enumerate(scheduler.get_last_lr()):
+            writer.add_scalar(f'LearningRate/lr_{i}', last_lr, e)
+        for metric_name, val in val_result.items():
+            writer.add_scalar(f'Metric/{metric_name}', val, e)
 
         states = {
             'epoch': e,

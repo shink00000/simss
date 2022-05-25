@@ -1,6 +1,7 @@
-from torchvision.io import read_image
 import os
 import os.path as osp
+
+from torchvision.io import read_image
 from PIL import Image
 
 from simss.datasets import transforms as T

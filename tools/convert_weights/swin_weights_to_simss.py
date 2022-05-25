@@ -1,7 +1,8 @@
-import torch
-from simss.models.backbones import SwinTransformer
 from collections import OrderedDict
+import torch
 from torchvision.transforms.functional import resize
+from simss.models.backbones import SwinTransformer
+
 
 with torch.no_grad():
     for scale in ['tiny', 'small', 'base']:

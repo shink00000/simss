@@ -161,8 +161,8 @@ class BiSeNetV1(nn.Module):
         auxs = [self.aux_head[i](auxs[i]) for i in range(2)]
         return (out, *auxs)
 
-    def parameters(self, cfg, recurse: bool = True):
-        return super().parameters(recurse)
+    def get_param_groups(self, cfg):
+        return self.parameters()
 
     def loss(self, output, target):
         out, *auxs = output

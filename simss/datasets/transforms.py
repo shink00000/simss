@@ -1,6 +1,7 @@
+from random import uniform, random, choice, randint
+
 import torch
 import torch.nn as nn
-from random import uniform, random, choice, randint
 from torchvision import transforms as T
 from torchvision.transforms import functional as F
 

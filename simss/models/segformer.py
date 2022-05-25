@@ -75,7 +75,7 @@ class SegFormer(nn.Module):
 
         return out
 
-    def parameters(self, cfg):
+    def get_param_groups(self, cfg):
         base_lr = cfg['lr']
         param_groups = [
             {'params': [], 'lr': base_lr * 0.1, 'weight_decay': 0.0},

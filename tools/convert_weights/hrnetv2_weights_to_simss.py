@@ -1,6 +1,7 @@
+from collections import OrderedDict
 import torch
 from simss.models.backbones import HRNetV2
-from collections import OrderedDict
+
 
 for width in [18, 32, 48]:
 
