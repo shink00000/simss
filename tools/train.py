@@ -4,7 +4,7 @@ import torch
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 
-from simss.utils.config import Config
+from simss.config import Config
 
 
 def main(args):

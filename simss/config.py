@@ -6,11 +6,11 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 
-from ..datasets import DATASETS
-from ..models import MODELS
-from ..optimizers import OPTIMIZERS
-from ..schedulers import SCHEDULERS
-from ..metrics.mean_iou import MeanIoU
+from .datasets import DATASETS
+from .models import MODELS
+from .optimizers import OPTIMIZERS
+from .schedulers import SCHEDULERS
+from .metrics.mean_iou import MeanIoU
 
 
 class Config:
