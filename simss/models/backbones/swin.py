@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 from ..layers import nlc_to_nchw, nchw_to_nlc, DropPath, MultiheadAttention
 
@@ -115,7 +116,9 @@ class WindowMSA(nn.Module):
         """
         n, _, c = x.shape
         x = x.view(n, h, w, c)
-        x = x.view(-1, h//window_size, window_size, w//window_size, window_size, c)
+        x = F.pad(x, pad=[0, 0, 0, window_size - w % window_size, 0, window_size - h % window_size])
+        _, ph, pw, _ = x.shape
+        x = x.view(-1, ph//window_size, window_size, pw//window_size, window_size, c)
         out = x.transpose(2, 3).contiguous().view(-1, window_size*window_size, c)
 
         return out
@@ -134,9 +137,10 @@ class WindowMSA(nn.Module):
             torch.Tensor: (N, L, C)
         """
         _, _, c = x.shape
-        x = x.view(-1, h//window_size, w//window_size, window_size, window_size, c)
+        ph, pw = h + window_size - h % window_size, w + window_size - w % window_size
+        x = x.view(-1, ph//window_size, pw//window_size, window_size, window_size, c)
         x = x.transpose(2, 3).contiguous()
-        out = x.view(-1, h * w, c)
+        out = x.view(-1, ph, pw, c)[:, :h, :w].contiguous().view(-1, h * w, c)
 
         return out
 
@@ -261,7 +265,7 @@ class TransformerBlock(nn.Module):
 
 
 class SwinTransformer(nn.Module):
-    def __init__(self, scale: str = 'tiny', window_size: int = 8, pretrain: str = None):
+    def __init__(self, scale: str = 'tiny', window_size: int = 7, pretrain: str = None):
         assert scale in ('tiny', 'small', 'base')
 
         super().__init__()
