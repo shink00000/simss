@@ -26,7 +26,7 @@ for i in range(6):
                 sub, *etc = etc
                 if sub == 'attn':
                     if 'in_proj' in etc[0]:
-                        param = etc[-1]
+                        param = etc[-1].split('_')[-1]
                         target_key_1 = f'block{int(block_no)+1}.{layer_no}.attn.q.{param}'
                         target_key_2 = f'block{int(block_no)+1}.{layer_no}.attn.kv.{param}'
                         state_dict[name] = torch.cat([targets[target_key_1], targets[target_key_2]], dim=0)

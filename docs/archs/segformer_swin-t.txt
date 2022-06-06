@@ -11,8 +11,7 @@ SegFormer(
             (norm1): LayerNorm((96,), eps=1e-05, elementwise_affine=True)
             (attn): WindowMSA(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=96, out_features=288, bias=True)
-                (out_proj): Linear(in_features=96, out_features=96, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=96, out_features=96, bias=True)
               )
               (drop_path): DropPath(drop_prob=0.0)
             )
@@ -28,8 +27,7 @@ SegFormer(
             (norm1): LayerNorm((96,), eps=1e-05, elementwise_affine=True)
             (attn): ShiftedWindowMSA(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=96, out_features=288, bias=True)
-                (out_proj): Linear(in_features=96, out_features=96, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=96, out_features=96, bias=True)
               )
               (drop_path): DropPath(drop_prob=0.027272729203104973)
             )
@@ -53,8 +51,7 @@ SegFormer(
             (norm1): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
             (attn): WindowMSA(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=192, out_features=576, bias=True)
-                (out_proj): Linear(in_features=192, out_features=192, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=192, out_features=192, bias=True)
               )
               (drop_path): DropPath(drop_prob=0.054545458406209946)
             )
@@ -70,8 +67,7 @@ SegFormer(
             (norm1): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
             (attn): ShiftedWindowMSA(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=192, out_features=576, bias=True)
-                (out_proj): Linear(in_features=192, out_features=192, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=192, out_features=192, bias=True)
               )
               (drop_path): DropPath(drop_prob=0.08181818574666977)
             )
@@ -95,8 +91,7 @@ SegFormer(
             (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
             (attn): WindowMSA(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=384, out_features=1152, bias=True)
-                (out_proj): Linear(in_features=384, out_features=384, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=384, out_features=384, bias=True)
               )
               (drop_path): DropPath(drop_prob=0.10909091681241989)
             )
@@ -112,8 +107,7 @@ SegFormer(
             (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
             (attn): ShiftedWindowMSA(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=384, out_features=1152, bias=True)
-                (out_proj): Linear(in_features=384, out_features=384, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=384, out_features=384, bias=True)
               )
               (drop_path): DropPath(drop_prob=0.13636364042758942)
             )
@@ -129,8 +123,7 @@ SegFormer(
             (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
             (attn): WindowMSA(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=384, out_features=1152, bias=True)
-                (out_proj): Linear(in_features=384, out_features=384, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=384, out_features=384, bias=True)
               )
               (drop_path): DropPath(drop_prob=0.16363637149333954)
             )
@@ -146,8 +139,7 @@ SegFormer(
             (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
             (attn): ShiftedWindowMSA(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=384, out_features=1152, bias=True)
-                (out_proj): Linear(in_features=384, out_features=384, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=384, out_features=384, bias=True)
               )
               (drop_path): DropPath(drop_prob=0.19090908765792847)
             )
@@ -163,8 +155,7 @@ SegFormer(
             (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
             (attn): WindowMSA(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=384, out_features=1152, bias=True)
-                (out_proj): Linear(in_features=384, out_features=384, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=384, out_features=384, bias=True)
               )
               (drop_path): DropPath(drop_prob=0.2181818187236786)
             )
@@ -180,8 +171,7 @@ SegFormer(
             (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
             (attn): ShiftedWindowMSA(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=384, out_features=1152, bias=True)
-                (out_proj): Linear(in_features=384, out_features=384, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=384, out_features=384, bias=True)
               )
               (drop_path): DropPath(drop_prob=0.2454545497894287)
             )
@@ -205,8 +195,7 @@ SegFormer(
             (norm1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
             (attn): WindowMSA(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=768, out_features=2304, bias=True)
-                (out_proj): Linear(in_features=768, out_features=768, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
               )
               (drop_path): DropPath(drop_prob=0.27272728085517883)
             )
@@ -222,8 +211,7 @@ SegFormer(
             (norm1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
             (attn): ShiftedWindowMSA(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=768, out_features=2304, bias=True)
-                (out_proj): Linear(in_features=768, out_features=768, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
               )
               (drop_path): DropPath(drop_prob=0.30000001192092896)
             )

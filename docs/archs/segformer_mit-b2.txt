@@ -11,8 +11,7 @@ SegFormer(
             (norm1): LayerNorm((64,), eps=1e-06, elementwise_affine=True)
             (attn): EfficientSelfAttention(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=64, out_features=192, bias=True)
-                (out_proj): Linear(in_features=64, out_features=64, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=64, out_features=64, bias=True)
               )
               (reduction): Conv2d(64, 64, kernel_size=(8, 8), stride=(8, 8))
               (norm): LayerNorm((64,), eps=1e-06, elementwise_affine=True)
@@ -31,8 +30,7 @@ SegFormer(
             (norm1): LayerNorm((64,), eps=1e-06, elementwise_affine=True)
             (attn): EfficientSelfAttention(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=64, out_features=192, bias=True)
-                (out_proj): Linear(in_features=64, out_features=64, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=64, out_features=64, bias=True)
               )
               (reduction): Conv2d(64, 64, kernel_size=(8, 8), stride=(8, 8))
               (norm): LayerNorm((64,), eps=1e-06, elementwise_affine=True)
@@ -51,8 +49,7 @@ SegFormer(
             (norm1): LayerNorm((64,), eps=1e-06, elementwise_affine=True)
             (attn): EfficientSelfAttention(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=64, out_features=192, bias=True)
-                (out_proj): Linear(in_features=64, out_features=64, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=64, out_features=64, bias=True)
               )
               (reduction): Conv2d(64, 64, kernel_size=(8, 8), stride=(8, 8))
               (norm): LayerNorm((64,), eps=1e-06, elementwise_affine=True)
@@ -80,8 +77,7 @@ SegFormer(
             (norm1): LayerNorm((128,), eps=1e-06, elementwise_affine=True)
             (attn): EfficientSelfAttention(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=128, out_features=384, bias=True)
-                (out_proj): Linear(in_features=128, out_features=128, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=128, out_features=128, bias=True)
               )
               (reduction): Conv2d(128, 128, kernel_size=(4, 4), stride=(4, 4))
               (norm): LayerNorm((128,), eps=1e-06, elementwise_affine=True)
@@ -100,8 +96,7 @@ SegFormer(
             (norm1): LayerNorm((128,), eps=1e-06, elementwise_affine=True)
             (attn): EfficientSelfAttention(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=128, out_features=384, bias=True)
-                (out_proj): Linear(in_features=128, out_features=128, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=128, out_features=128, bias=True)
               )
               (reduction): Conv2d(128, 128, kernel_size=(4, 4), stride=(4, 4))
               (norm): LayerNorm((128,), eps=1e-06, elementwise_affine=True)
@@ -120,8 +115,7 @@ SegFormer(
             (norm1): LayerNorm((128,), eps=1e-06, elementwise_affine=True)
             (attn): EfficientSelfAttention(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=128, out_features=384, bias=True)
-                (out_proj): Linear(in_features=128, out_features=128, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=128, out_features=128, bias=True)
               )
               (reduction): Conv2d(128, 128, kernel_size=(4, 4), stride=(4, 4))
               (norm): LayerNorm((128,), eps=1e-06, elementwise_affine=True)
@@ -140,8 +134,7 @@ SegFormer(
             (norm1): LayerNorm((128,), eps=1e-06, elementwise_affine=True)
             (attn): EfficientSelfAttention(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=128, out_features=384, bias=True)
-                (out_proj): Linear(in_features=128, out_features=128, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=128, out_features=128, bias=True)
               )
               (reduction): Conv2d(128, 128, kernel_size=(4, 4), stride=(4, 4))
               (norm): LayerNorm((128,), eps=1e-06, elementwise_affine=True)
@@ -169,8 +162,7 @@ SegFormer(
             (norm1): LayerNorm((320,), eps=1e-06, elementwise_affine=True)
             (attn): EfficientSelfAttention(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=320, out_features=960, bias=True)
-                (out_proj): Linear(in_features=320, out_features=320, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=320, out_features=320, bias=True)
               )
               (reduction): Conv2d(320, 320, kernel_size=(2, 2), stride=(2, 2))
               (norm): LayerNorm((320,), eps=1e-06, elementwise_affine=True)
@@ -189,8 +181,7 @@ SegFormer(
             (norm1): LayerNorm((320,), eps=1e-06, elementwise_affine=True)
             (attn): EfficientSelfAttention(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=320, out_features=960, bias=True)
-                (out_proj): Linear(in_features=320, out_features=320, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=320, out_features=320, bias=True)
               )
               (reduction): Conv2d(320, 320, kernel_size=(2, 2), stride=(2, 2))
               (norm): LayerNorm((320,), eps=1e-06, elementwise_affine=True)
@@ -209,8 +200,7 @@ SegFormer(
             (norm1): LayerNorm((320,), eps=1e-06, elementwise_affine=True)
             (attn): EfficientSelfAttention(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=320, out_features=960, bias=True)
-                (out_proj): Linear(in_features=320, out_features=320, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=320, out_features=320, bias=True)
               )
               (reduction): Conv2d(320, 320, kernel_size=(2, 2), stride=(2, 2))
               (norm): LayerNorm((320,), eps=1e-06, elementwise_affine=True)
@@ -229,8 +219,7 @@ SegFormer(
             (norm1): LayerNorm((320,), eps=1e-06, elementwise_affine=True)
             (attn): EfficientSelfAttention(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=320, out_features=960, bias=True)
-                (out_proj): Linear(in_features=320, out_features=320, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=320, out_features=320, bias=True)
               )
               (reduction): Conv2d(320, 320, kernel_size=(2, 2), stride=(2, 2))
               (norm): LayerNorm((320,), eps=1e-06, elementwise_affine=True)
@@ -249,8 +238,7 @@ SegFormer(
             (norm1): LayerNorm((320,), eps=1e-06, elementwise_affine=True)
             (attn): EfficientSelfAttention(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=320, out_features=960, bias=True)
-                (out_proj): Linear(in_features=320, out_features=320, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=320, out_features=320, bias=True)
               )
               (reduction): Conv2d(320, 320, kernel_size=(2, 2), stride=(2, 2))
               (norm): LayerNorm((320,), eps=1e-06, elementwise_affine=True)
@@ -269,8 +257,7 @@ SegFormer(
             (norm1): LayerNorm((320,), eps=1e-06, elementwise_affine=True)
             (attn): EfficientSelfAttention(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=320, out_features=960, bias=True)
-                (out_proj): Linear(in_features=320, out_features=320, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=320, out_features=320, bias=True)
               )
               (reduction): Conv2d(320, 320, kernel_size=(2, 2), stride=(2, 2))
               (norm): LayerNorm((320,), eps=1e-06, elementwise_affine=True)
@@ -298,8 +285,7 @@ SegFormer(
             (norm1): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
             (attn): EfficientSelfAttention(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=512, out_features=1536, bias=True)
-                (out_proj): Linear(in_features=512, out_features=512, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
               )
               (drop_path): DropPath(drop_prob=0.08666667342185974)
             )
@@ -316,8 +302,7 @@ SegFormer(
             (norm1): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
             (attn): EfficientSelfAttention(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=512, out_features=1536, bias=True)
-                (out_proj): Linear(in_features=512, out_features=512, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
               )
               (drop_path): DropPath(drop_prob=0.09333333373069763)
             )
@@ -334,8 +319,7 @@ SegFormer(
             (norm1): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
             (attn): EfficientSelfAttention(
               (attn): MultiheadAttention(
-                (in_proj): Linear(in_features=512, out_features=1536, bias=True)
-                (out_proj): Linear(in_features=512, out_features=512, bias=True)
+                (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
               )
               (drop_path): DropPath(drop_prob=0.10000000149011612)
             )

@@ -30,7 +30,7 @@ with torch.no_grad():
                 elif 'attn' == module:
                     sub, *etc = etc
                     if sub == 'attn':
-                        param = etc[-1]
+                        param = etc[-1].split('_')[-1]
                         if 'in_proj' in etc[0]:
                             target_key = f'layers.{block_no}.blocks.{layer_no}.attn.qkv.{param}'
                             state_dict[name] = targets[target_key]

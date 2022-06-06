@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from .layers import nchw_to_nlc, nlc_to_nchw, MultiheadAttention
+from .layers import nchw_to_nlc, nlc_to_nchw
 from .segformer import ConvModule
 from .backbones import BACKBONES
 
@@ -44,7 +44,7 @@ class LargeWindowAttention(nn.Module):
         self.pool = nn.AvgPool2d(r, r)
         self.norm = nn.LayerNorm(embed_dim, eps=1e-6)
         self.position_mixing = PositionMixing(patch_size, n_heads)
-        self.attn = MultiheadAttention(embed_dim, n_heads)
+        self.attn = nn.MultiheadAttention(embed_dim, n_heads)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """
@@ -65,7 +65,7 @@ class LargeWindowAttention(nn.Module):
         c = self.norm(c)
         c = self.position_mixing(c)
 
-        x = self.attn(q, c, c)
+        x = self.attn(q, c, c, need_weights=False)[0]
         x = nlc_to_nchw(x, self.patch_size, self.patch_size)
         out = self.window_reverse(x, self.patch_size, h, w)
 
