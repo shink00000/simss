@@ -28,10 +28,10 @@ class OverlapPatchEmbeding(nn.Module):
 class EfficientSelfAttention(nn.Module):
     def __init__(self, embed_dim, n_heads, reduce_ratio):
         super().__init__()
-        self.attn = MultiheadAttention(embed_dim, n_heads)
         if reduce_ratio > 1:
             self.reduction = nn.Conv2d(embed_dim, embed_dim, reduce_ratio, stride=reduce_ratio)
             self.norm = nn.LayerNorm(embed_dim, eps=1e-6)
+        self.attn = MultiheadAttention(embed_dim, n_heads)
 
     def forward(self, x, h, w):
         x_q = x

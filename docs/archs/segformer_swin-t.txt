@@ -11,33 +11,39 @@ SegFormer(
             (norm1): LayerNorm((96,), eps=1e-05, elementwise_affine=True)
             (attn): WindowMSA(
               (attn): MultiheadAttention(
-                (out_proj): NonDynamicallyQuantizableLinear(in_features=96, out_features=96, bias=True)
+                (in_proj_q): Linear(in_features=96, out_features=96, bias=True)
+                (in_proj_k): Linear(in_features=96, out_features=96, bias=True)
+                (in_proj_v): Linear(in_features=96, out_features=96, bias=True)
+                (out_proj): Linear(in_features=96, out_features=96, bias=True)
               )
-              (drop_path): DropPath(drop_prob=0.0)
             )
+            (drop1): DropPath(drop_prob=0.0)
             (norm2): LayerNorm((96,), eps=1e-05, elementwise_affine=True)
-            (ffn): MLP(
+            (ffn): FFN(
               (fc1): Linear(in_features=96, out_features=384, bias=True)
               (act): GELU()
               (fc2): Linear(in_features=384, out_features=96, bias=True)
-              (drop_path): DropPath(drop_prob=0.0)
             )
+            (drop2): DropPath(drop_prob=0.0)
           )
           (1): TransformerLayer(
             (norm1): LayerNorm((96,), eps=1e-05, elementwise_affine=True)
             (attn): ShiftedWindowMSA(
               (attn): MultiheadAttention(
-                (out_proj): NonDynamicallyQuantizableLinear(in_features=96, out_features=96, bias=True)
+                (in_proj_q): Linear(in_features=96, out_features=96, bias=True)
+                (in_proj_k): Linear(in_features=96, out_features=96, bias=True)
+                (in_proj_v): Linear(in_features=96, out_features=96, bias=True)
+                (out_proj): Linear(in_features=96, out_features=96, bias=True)
               )
-              (drop_path): DropPath(drop_prob=0.027272729203104973)
             )
+            (drop1): DropPath(drop_prob=0.027272729203104973)
             (norm2): LayerNorm((96,), eps=1e-05, elementwise_affine=True)
-            (ffn): MLP(
+            (ffn): FFN(
               (fc1): Linear(in_features=96, out_features=384, bias=True)
               (act): GELU()
               (fc2): Linear(in_features=384, out_features=96, bias=True)
-              (drop_path): DropPath(drop_prob=0.027272729203104973)
             )
+            (drop2): DropPath(drop_prob=0.027272729203104973)
           )
         )
       )
@@ -51,33 +57,39 @@ SegFormer(
             (norm1): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
             (attn): WindowMSA(
               (attn): MultiheadAttention(
-                (out_proj): NonDynamicallyQuantizableLinear(in_features=192, out_features=192, bias=True)
+                (in_proj_q): Linear(in_features=192, out_features=192, bias=True)
+                (in_proj_k): Linear(in_features=192, out_features=192, bias=True)
+                (in_proj_v): Linear(in_features=192, out_features=192, bias=True)
+                (out_proj): Linear(in_features=192, out_features=192, bias=True)
               )
-              (drop_path): DropPath(drop_prob=0.054545458406209946)
             )
+            (drop1): DropPath(drop_prob=0.054545458406209946)
             (norm2): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
-            (ffn): MLP(
+            (ffn): FFN(
               (fc1): Linear(in_features=192, out_features=768, bias=True)
               (act): GELU()
               (fc2): Linear(in_features=768, out_features=192, bias=True)
-              (drop_path): DropPath(drop_prob=0.054545458406209946)
             )
+            (drop2): DropPath(drop_prob=0.054545458406209946)
           )
           (1): TransformerLayer(
             (norm1): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
             (attn): ShiftedWindowMSA(
               (attn): MultiheadAttention(
-                (out_proj): NonDynamicallyQuantizableLinear(in_features=192, out_features=192, bias=True)
+                (in_proj_q): Linear(in_features=192, out_features=192, bias=True)
+                (in_proj_k): Linear(in_features=192, out_features=192, bias=True)
+                (in_proj_v): Linear(in_features=192, out_features=192, bias=True)
+                (out_proj): Linear(in_features=192, out_features=192, bias=True)
               )
-              (drop_path): DropPath(drop_prob=0.08181818574666977)
             )
+            (drop1): DropPath(drop_prob=0.08181818574666977)
             (norm2): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
-            (ffn): MLP(
+            (ffn): FFN(
               (fc1): Linear(in_features=192, out_features=768, bias=True)
               (act): GELU()
               (fc2): Linear(in_features=768, out_features=192, bias=True)
-              (drop_path): DropPath(drop_prob=0.08181818574666977)
             )
+            (drop2): DropPath(drop_prob=0.08181818574666977)
           )
         )
       )
@@ -91,97 +103,115 @@ SegFormer(
             (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
             (attn): WindowMSA(
               (attn): MultiheadAttention(
-                (out_proj): NonDynamicallyQuantizableLinear(in_features=384, out_features=384, bias=True)
+                (in_proj_q): Linear(in_features=384, out_features=384, bias=True)
+                (in_proj_k): Linear(in_features=384, out_features=384, bias=True)
+                (in_proj_v): Linear(in_features=384, out_features=384, bias=True)
+                (out_proj): Linear(in_features=384, out_features=384, bias=True)
               )
-              (drop_path): DropPath(drop_prob=0.10909091681241989)
             )
+            (drop1): DropPath(drop_prob=0.10909091681241989)
             (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
-            (ffn): MLP(
+            (ffn): FFN(
               (fc1): Linear(in_features=384, out_features=1536, bias=True)
               (act): GELU()
               (fc2): Linear(in_features=1536, out_features=384, bias=True)
-              (drop_path): DropPath(drop_prob=0.10909091681241989)
             )
+            (drop2): DropPath(drop_prob=0.10909091681241989)
           )
           (1): TransformerLayer(
             (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
             (attn): ShiftedWindowMSA(
               (attn): MultiheadAttention(
-                (out_proj): NonDynamicallyQuantizableLinear(in_features=384, out_features=384, bias=True)
+                (in_proj_q): Linear(in_features=384, out_features=384, bias=True)
+                (in_proj_k): Linear(in_features=384, out_features=384, bias=True)
+                (in_proj_v): Linear(in_features=384, out_features=384, bias=True)
+                (out_proj): Linear(in_features=384, out_features=384, bias=True)
               )
-              (drop_path): DropPath(drop_prob=0.13636364042758942)
             )
+            (drop1): DropPath(drop_prob=0.13636364042758942)
             (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
-            (ffn): MLP(
+            (ffn): FFN(
               (fc1): Linear(in_features=384, out_features=1536, bias=True)
               (act): GELU()
               (fc2): Linear(in_features=1536, out_features=384, bias=True)
-              (drop_path): DropPath(drop_prob=0.13636364042758942)
             )
+            (drop2): DropPath(drop_prob=0.13636364042758942)
           )
           (2): TransformerLayer(
             (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
             (attn): WindowMSA(
               (attn): MultiheadAttention(
-                (out_proj): NonDynamicallyQuantizableLinear(in_features=384, out_features=384, bias=True)
+                (in_proj_q): Linear(in_features=384, out_features=384, bias=True)
+                (in_proj_k): Linear(in_features=384, out_features=384, bias=True)
+                (in_proj_v): Linear(in_features=384, out_features=384, bias=True)
+                (out_proj): Linear(in_features=384, out_features=384, bias=True)
               )
-              (drop_path): DropPath(drop_prob=0.16363637149333954)
             )
+            (drop1): DropPath(drop_prob=0.16363637149333954)
             (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
-            (ffn): MLP(
+            (ffn): FFN(
               (fc1): Linear(in_features=384, out_features=1536, bias=True)
               (act): GELU()
               (fc2): Linear(in_features=1536, out_features=384, bias=True)
-              (drop_path): DropPath(drop_prob=0.16363637149333954)
             )
+            (drop2): DropPath(drop_prob=0.16363637149333954)
           )
           (3): TransformerLayer(
             (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
             (attn): ShiftedWindowMSA(
               (attn): MultiheadAttention(
-                (out_proj): NonDynamicallyQuantizableLinear(in_features=384, out_features=384, bias=True)
+                (in_proj_q): Linear(in_features=384, out_features=384, bias=True)
+                (in_proj_k): Linear(in_features=384, out_features=384, bias=True)
+                (in_proj_v): Linear(in_features=384, out_features=384, bias=True)
+                (out_proj): Linear(in_features=384, out_features=384, bias=True)
               )
-              (drop_path): DropPath(drop_prob=0.19090908765792847)
             )
+            (drop1): DropPath(drop_prob=0.19090908765792847)
             (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
-            (ffn): MLP(
+            (ffn): FFN(
               (fc1): Linear(in_features=384, out_features=1536, bias=True)
               (act): GELU()
               (fc2): Linear(in_features=1536, out_features=384, bias=True)
-              (drop_path): DropPath(drop_prob=0.19090908765792847)
             )
+            (drop2): DropPath(drop_prob=0.19090908765792847)
           )
           (4): TransformerLayer(
             (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
             (attn): WindowMSA(
               (attn): MultiheadAttention(
-                (out_proj): NonDynamicallyQuantizableLinear(in_features=384, out_features=384, bias=True)
+                (in_proj_q): Linear(in_features=384, out_features=384, bias=True)
+                (in_proj_k): Linear(in_features=384, out_features=384, bias=True)
+                (in_proj_v): Linear(in_features=384, out_features=384, bias=True)
+                (out_proj): Linear(in_features=384, out_features=384, bias=True)
               )
-              (drop_path): DropPath(drop_prob=0.2181818187236786)
             )
+            (drop1): DropPath(drop_prob=0.2181818187236786)
             (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
-            (ffn): MLP(
+            (ffn): FFN(
               (fc1): Linear(in_features=384, out_features=1536, bias=True)
               (act): GELU()
               (fc2): Linear(in_features=1536, out_features=384, bias=True)
-              (drop_path): DropPath(drop_prob=0.2181818187236786)
             )
+            (drop2): DropPath(drop_prob=0.2181818187236786)
           )
           (5): TransformerLayer(
             (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
             (attn): ShiftedWindowMSA(
               (attn): MultiheadAttention(
-                (out_proj): NonDynamicallyQuantizableLinear(in_features=384, out_features=384, bias=True)
+                (in_proj_q): Linear(in_features=384, out_features=384, bias=True)
+                (in_proj_k): Linear(in_features=384, out_features=384, bias=True)
+                (in_proj_v): Linear(in_features=384, out_features=384, bias=True)
+                (out_proj): Linear(in_features=384, out_features=384, bias=True)
               )
-              (drop_path): DropPath(drop_prob=0.2454545497894287)
             )
+            (drop1): DropPath(drop_prob=0.2454545497894287)
             (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
-            (ffn): MLP(
+            (ffn): FFN(
               (fc1): Linear(in_features=384, out_features=1536, bias=True)
               (act): GELU()
               (fc2): Linear(in_features=1536, out_features=384, bias=True)
-              (drop_path): DropPath(drop_prob=0.2454545497894287)
             )
+            (drop2): DropPath(drop_prob=0.2454545497894287)
           )
         )
       )
@@ -195,33 +225,39 @@ SegFormer(
             (norm1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
             (attn): WindowMSA(
               (attn): MultiheadAttention(
-                (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+                (in_proj_q): Linear(in_features=768, out_features=768, bias=True)
+                (in_proj_k): Linear(in_features=768, out_features=768, bias=True)
+                (in_proj_v): Linear(in_features=768, out_features=768, bias=True)
+                (out_proj): Linear(in_features=768, out_features=768, bias=True)
               )
-              (drop_path): DropPath(drop_prob=0.27272728085517883)
             )
+            (drop1): DropPath(drop_prob=0.27272728085517883)
             (norm2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
-            (ffn): MLP(
+            (ffn): FFN(
               (fc1): Linear(in_features=768, out_features=3072, bias=True)
               (act): GELU()
               (fc2): Linear(in_features=3072, out_features=768, bias=True)
-              (drop_path): DropPath(drop_prob=0.27272728085517883)
             )
+            (drop2): DropPath(drop_prob=0.27272728085517883)
           )
           (1): TransformerLayer(
             (norm1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
             (attn): ShiftedWindowMSA(
               (attn): MultiheadAttention(
-                (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+                (in_proj_q): Linear(in_features=768, out_features=768, bias=True)
+                (in_proj_k): Linear(in_features=768, out_features=768, bias=True)
+                (in_proj_v): Linear(in_features=768, out_features=768, bias=True)
+                (out_proj): Linear(in_features=768, out_features=768, bias=True)
               )
-              (drop_path): DropPath(drop_prob=0.30000001192092896)
             )
+            (drop1): DropPath(drop_prob=0.30000001192092896)
             (norm2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
-            (ffn): MLP(
+            (ffn): FFN(
               (fc1): Linear(in_features=768, out_features=3072, bias=True)
               (act): GELU()
               (fc2): Linear(in_features=3072, out_features=768, bias=True)
-              (drop_path): DropPath(drop_prob=0.30000001192092896)
             )
+            (drop2): DropPath(drop_prob=0.30000001192092896)
           )
         )
       )
