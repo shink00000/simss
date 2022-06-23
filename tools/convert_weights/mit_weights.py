@@ -26,10 +26,18 @@ for i in range(6):
                 sub, *etc = etc
                 if sub == 'attn':
                     if 'in_proj' in etc[0]:
-                        param = etc[-1].split('_')[-1]
-                        target_key_1 = f'block{int(block_no)+1}.{layer_no}.attn.q.{param}'
-                        target_key_2 = f'block{int(block_no)+1}.{layer_no}.attn.kv.{param}'
-                        state_dict[name] = torch.cat([targets[target_key_1], targets[target_key_2]], dim=0)
+                        param = etc[-1]
+                        if etc[0].endswith('q'):
+                            target_key = f'block{int(block_no)+1}.{layer_no}.attn.q.{param}'
+                            target = targets[target_key]
+                        else:
+                            target_key = f'block{int(block_no)+1}.{layer_no}.attn.kv.{param}'
+                            target = targets[target_key]
+                            if etc[0].endswith('k'):
+                                target = target[:target.shape[0]//2]
+                            else:
+                                target = target[target.shape[0]//2:]
+                        state_dict[name] = target
                     elif 'out_proj' in etc[0]:
                         param = etc[-1]
                         target_key = f'block{int(block_no)+1}.{layer_no}.attn.proj.{param}'

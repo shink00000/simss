@@ -30,10 +30,18 @@ with torch.no_grad():
                 elif 'attn' == module:
                     sub, *etc = etc
                     if sub == 'attn':
-                        param = etc[-1].split('_')[-1]
+                        param = etc[-1]
                         if 'in_proj' in etc[0]:
                             target_key = f'layers.{block_no}.blocks.{layer_no}.attn.qkv.{param}'
-                            state_dict[name] = targets[target_key]
+                            target = targets[target_key]
+                            out_features = target.size(0)
+                            if etc[0].endswith('q'):
+                                target = target[0:out_features//3]
+                            elif etc[0].endswith('k'):
+                                target = target[out_features//3:2*out_features//3]
+                            else:
+                                target = target[2*out_features//3:]
+                            state_dict[name] = target
                         elif 'out_proj' in etc[0]:
                             target_key = f'layers.{block_no}.blocks.{layer_no}.attn.proj.{param}'
                             state_dict[name] = targets[target_key]
